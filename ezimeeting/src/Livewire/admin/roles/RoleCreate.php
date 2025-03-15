@@ -36,6 +36,6 @@ class RoleCreate extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.roles.role-create');
+        return view('ezimeeting::livewire.admin.roles.role-create');
     }
 }

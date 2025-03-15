@@ -44,7 +44,7 @@ class UsersTable extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.users.users-table', [
+        return view('ezimeeting::livewire.admin.users.users-table', [
             'users' => User::search($this->search)
             ->when($this->admin !== '', function($query) {
                 $query->where('is_admin', $this->admin);

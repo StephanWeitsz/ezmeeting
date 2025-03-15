@@ -35,7 +35,7 @@ class Menu extends Component
                 
                 ['label' => 'Meeting Status', 'route' => 'meetingStatus','auth' => true],
                 ['label' => 'Meeting Interval', 'route' => 'meetingInterval','auth' => true],
-                ['label' => 'Meeting Locations', 'route' => 'underDevelopment','auth' => true],
+                ['label' => 'Meeting Locations', 'route' => 'meetingLocation','auth' => true],
                 ['label' => 'Meeting Roles', 'route' => 'underDevelopment','auth' => true],
                 
                 ['label' => 'Attendee Option', 'route' => 'underDevelopment','auth' => true],

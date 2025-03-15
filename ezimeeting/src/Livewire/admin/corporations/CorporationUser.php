@@ -57,6 +57,6 @@ class CorporationUser extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.corporations.corporation-user');
+        return view('ezimeeting::livewire.admin.corporations.corporation-user');
     }
 }

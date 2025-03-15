@@ -19,7 +19,7 @@ class DepartmentCorporationsList extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.departments.department-corporations-list', [
+        return view('ezimeeting::livewire.admin.departments.department-corporations-list', [
             'corporations' => Corporation::latest()->where('name', 'ilike', "%{$this->search}%")->paginate(20)
         ]);
     } //public function render()

@@ -13,6 +13,7 @@ class MeetingLocation extends Model
     protected $fillable = [
         'description',
         'text',
+        'corporation_id',
         'is_active',
     ];
 
@@ -28,6 +29,15 @@ class MeetingLocation extends Model
     public function meeting()
     {
         return $this->belongsTo(Meeting::class);
+    }
+
+    /**
+     * Get the corporation that the location belongs to.
+     * This method defines a belongsTo relationship with Meeting model.
+     */
+    public function corporation()
+    {
+        return $this->belongsTo(Corporation::class, 'corporation_id');
     }
 
     /**

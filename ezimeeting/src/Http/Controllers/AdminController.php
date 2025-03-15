@@ -32,5 +32,9 @@ class AdminController extends Controller
         return view('ezimeeting::admin.meetinginterval');
     }
 
+    public function meetinglocation() {
+        return view('ezimeeting::admin.meetinglocation');
+    }
+
 }
 

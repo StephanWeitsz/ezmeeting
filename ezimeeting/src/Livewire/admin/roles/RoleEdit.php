@@ -44,6 +44,6 @@ class RoleEdit extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.roles.role-edit');
+        return view('ezimeeting::livewire.admin.roles.role-edit');
     }
 }

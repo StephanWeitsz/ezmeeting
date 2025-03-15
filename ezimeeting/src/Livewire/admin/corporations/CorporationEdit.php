@@ -65,6 +65,6 @@ class CorporationEdit extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.corporations.corporation-edit');
+        return view('ezimeeting::livewire.admin.corporations.corporation-edit');
     }
 }

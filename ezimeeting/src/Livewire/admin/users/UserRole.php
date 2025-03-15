@@ -31,7 +31,7 @@ class UserRole extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.users.user-role');
+        return view('ezimeeting::livewire.admin.users.user-role');
     }
 
 }

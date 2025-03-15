@@ -53,7 +53,7 @@ class DepartmentCreate extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.departments.department-create');
+        return view('ezimeeting::livewire.admin.departments.department-create');
     }
 
 

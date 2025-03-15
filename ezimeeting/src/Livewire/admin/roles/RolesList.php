@@ -28,7 +28,7 @@ class RolesList extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('ezimeeting::livewire.roles.roles-list', compact('roles'));
+        return view('ezimeeting::livewire.admin.roles.roles-list', compact('roles'));
     }
 
     public function sortBy($field)

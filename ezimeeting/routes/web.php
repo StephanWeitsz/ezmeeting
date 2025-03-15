@@ -32,6 +32,7 @@ Route::middleware('web')->group(function () {
 
     Route::get('/admin/meeting_status/manager', [AdminController::class, 'meetingstatus'])->name('meetingStatus');
     Route::get('/admin/meeting_interval/manager', [AdminController::class, 'meetinginterval'])->name('meetingInterval');
+    Route::get('/admin/meeting_location/manager', [AdminController::class, 'meetinglocation'])->name('meetingLocation');
 
     Route::get('/admin/roles', [RoleController::class, 'roles'])->name('roles');
     Route::get('/admin/role/create', [RoleController::class, 'create'])->name('roleCreate');

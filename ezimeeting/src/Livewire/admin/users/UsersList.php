@@ -51,6 +51,6 @@ class usersList extends Component
         ->orderBy($this->sortField, $this->sortDirection)
         ->paginate($this->perPage);
 
-        return view('ezimeeting::livewire.users.users-list', compact('users'));
+        return view('ezimeeting::livewire.admin.users.users-list', compact('users'));
     }
 }

@@ -36,7 +36,7 @@ class CorporationList extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.corporations.corporation-list', [
+        return view('ezimeeting::livewire.admin.corporations.corporation-list', [
             'corporations' => Corporation::latest()->where('name', 'ilike', "%{$this->search}%")->paginate(20)
         ]);
     } //public function render()

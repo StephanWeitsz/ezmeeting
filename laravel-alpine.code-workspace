@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../laravel-project"
+		},
+		{
+			"path": "../../../../../laravel-sendmark-project"
+		}
+	],
+	"settings": {}
+}

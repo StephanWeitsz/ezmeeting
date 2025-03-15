@@ -31,7 +31,7 @@ class UserEdit extends Component
 
     public function render()
     {       
-        return view('ezimeeting::livewire.users.user-edit');
+        return view('ezimeeting::livewire.admin.users.user-edit');
     }
 
     public function updatedProfilePhoto()

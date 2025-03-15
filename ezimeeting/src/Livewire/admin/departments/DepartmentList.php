@@ -10,8 +10,7 @@ use Livewire\WithPagination;
 class DepartmentList extends Component
 {
     use WithPagination;
-    
-    
+        
     public $corporation;
     public $department;
 
@@ -44,7 +43,7 @@ class DepartmentList extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.departments.department-list', [
+        return view('ezimeeting::livewire.admin.departments.department-list', [
             'departments' => Department::latest()
                 ->where('name', 'ilike', "%{$this->search}%")
                 ->where('corporation_id', '=', $this->corporation)

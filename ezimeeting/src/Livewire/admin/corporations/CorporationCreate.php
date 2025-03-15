@@ -54,6 +54,6 @@ class CorporationCreate extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.corporations.corporation-create');
+        return view('ezimeeting::livewire.admin.corporations.corporation-create');
     }
 }

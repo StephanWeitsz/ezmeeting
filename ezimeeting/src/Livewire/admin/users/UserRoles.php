@@ -26,6 +26,6 @@ class UserRoles extends Component
 
     public function render()
     {
-        return view('livewire.user-roles');
+        return view('livewire.admin.user-roles');
     }
 }

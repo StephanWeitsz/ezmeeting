@@ -54,6 +54,6 @@ class DepartmentEdit extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.departments.department-edit');
+        return view('ezimeeting::livewire.admin.departments.department-edit');
     }
 }
