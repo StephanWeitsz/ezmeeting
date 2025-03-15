@@ -1,6 +1,6 @@
 <?php
 
-namespace Mudtec\Ezimeeting\Database\Factories\User;
+namespace Mudtec\Ezimeeting\Database\Factories\Users;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;

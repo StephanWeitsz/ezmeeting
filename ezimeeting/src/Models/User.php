@@ -2,6 +2,9 @@
 
 namespace Mudtec\Ezimeeting\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
 use App\Models\User as BaseUser;
 
 //use Illuminate\Database\Eloquent\Relations\hasMany;
@@ -11,10 +14,18 @@ use App\Models\User as BaseUser;
 
 class User extends BaseUser
 {
+    use HasFactory;
+    
     // Define a belongsToMany relationship with Role model   
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')->withTimestamps();
+    }
+
+    public function assignRole($role)
+    {
+        // You can add logic here to handle the assignment of a role
+        $this->roles()->attach($role);  // Attaches the role to the pivot table
     }
 
     public function hasRole($roleName)

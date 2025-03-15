@@ -34,3 +34,8 @@ composer update
 #publish public
 php artisan vendor:publish --tag=public --ansi --force
 
+
+///
+php artisan migrate:fresh
+php artisan db:seed --class="Mudtec\\Ezimeeting\\Database\\Seeders\\EzimeetingDatabaseSeeder"
+

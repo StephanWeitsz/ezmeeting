@@ -4,8 +4,7 @@ namespace Mudtec\Ezimeeting\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-
+use Mudtec\Ezimeeting\Models\User;
 
 class Role extends Model
 {
