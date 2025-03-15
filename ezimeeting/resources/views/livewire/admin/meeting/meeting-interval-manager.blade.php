@@ -42,7 +42,7 @@
                     </button>
                     
                     @if ($intervalId)
-                        <button type="button" wire:click="resetForm"
+                        <button type="button" wire:click="onCancelInterval"
                             class="w-1/3 py-2 text-white bg-gray-500 hover:bg-gray-600 rounded-lg transition">
                             Cancel
                         </button>

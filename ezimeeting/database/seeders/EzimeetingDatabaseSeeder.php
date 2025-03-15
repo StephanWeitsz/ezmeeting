@@ -12,6 +12,7 @@ class EzimeetingDatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            \Mudtec\Ezimeeting\Database\Seeders\EzimeetingRoleSeeder::class,
             \Mudtec\Ezimeeting\Database\Seeders\EzimeetingUserSeeder::class,
         ]);
     }

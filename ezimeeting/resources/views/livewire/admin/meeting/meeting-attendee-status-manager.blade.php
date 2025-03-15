@@ -44,7 +44,7 @@
                 <div class="w-full flex gap-2">
                     <button type="submit"
                         class="{{ $statusId ? 'w-1/3' : 'w-1/3' }} py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition">
-                        {{ $statusId ? 'Update' : 'Save' }} Status
+                        {{ $statusId ? 'Update' : 'Save' }} Attendee Status
                     </button>
                     
                     @if ($statusId)
@@ -82,7 +82,7 @@
                                 <td class="py-3 px-6 text-left whitespace-nowrap">{{ $status->description }}</td>
                                 <td class="py-3 px-6 text-left">{{ $status->text }}</td>
                                 <td class="py-3 px-6 text-left">
-                                    <span class="inline-block w-6 h-6 rounded-full border" style="background-color: {{ $status->color }}"></span>
+                                    <span class="inline-block w-6 h-6 rounded-full" style="background-color: {{ $status->color }};"></span>
                                 </td>
                                 <td class="py-3 px-6 text-left">{{ $status->order }}</td>
                                 <td class="py-3 px-6 text-left">

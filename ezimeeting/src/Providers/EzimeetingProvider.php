@@ -106,6 +106,10 @@ class EzimeetingProvider extends ServiceProvider
         Livewire::component('meetingIntervalManager', \Mudtec\Ezimeeting\Livewire\Admin\Meeting\MeetingIntervalManager::class);
         Livewire::component('meetingLocationManager', \Mudtec\Ezimeeting\Livewire\Admin\Meeting\MeetingLocationManager::class);
 
+        Livewire::component('meetingDelegateRoleManager', \Mudtec\Ezimeeting\Livewire\Admin\Meeting\MeetingDelegateRoleManager::class);
+        Livewire::component('meetingAttendeeStatusManager', \Mudtec\Ezimeeting\Livewire\Admin\Meeting\MeetingAttendeeStatusManager::class);
+        Livewire::component('meetingMinuteActionStatusManager', \Mudtec\Ezimeeting\Livewire\Admin\Meeting\MeetingMinuteActionStatusManager::class);
+
         #Livewire::component('meetings', \Mudtec\Ezimeeting\Livewire\meetings::class);
         #Livewire::component('minutes', \Mudtec\Ezimeeting\Livewire\minutes::class);
         #Livewire::component('manages', \Mudtec\Ezimeeting\Livewire\admin\departments::class);

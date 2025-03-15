@@ -32,7 +32,7 @@ class MeetingAttendeeStatus extends Model
      *
      * @var array
      */
-    protected array $fillable = [
+    protected $fillable = [
         'description',
         'text',
         'color',

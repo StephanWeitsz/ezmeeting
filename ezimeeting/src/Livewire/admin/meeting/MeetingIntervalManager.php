@@ -10,7 +10,7 @@ class MeetingIntervalManager extends Component
 {
     public $description;
     public $text;
-    public $order = 0;
+    public $order = 1;
     public $is_active = true;
     public $intervalId;
     public $intervals;
@@ -58,7 +58,6 @@ class MeetingIntervalManager extends Component
 
     public function updateInterval()
     {
-
         if (!$this->intervalId) return;
 
         $this->validate([
@@ -90,12 +89,17 @@ class MeetingIntervalManager extends Component
         $this->resetForm();
     }
 
+    public function onCancelInterval()
+    {
+        $this->resetForm();
+    }
+
     private function resetForm()
     {
         $this->intervalId = null;
         $this->description = '';
         $this->text = '';
-        $this->order = 0;
+        $this->order = 1;
         $this->is_active = true;
     }
 

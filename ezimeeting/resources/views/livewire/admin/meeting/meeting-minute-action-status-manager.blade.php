@@ -82,7 +82,7 @@
                                 <td class="py-3 px-6 text-left whitespace-nowrap">{{ $status->description }}</td>
                                 <td class="py-3 px-6 text-left">{{ $status->text }}</td>
                                 <td class="py-3 px-6 text-left">
-                                    <span class="inline-block w-6 h-6 rounded-full border" style="background-color: {{ $status->color }}"></span>
+                                    <span class="inline-block w-6 h-6 rounded-full" style="background-color: {{ $status->color }};"></span>
                                 </td>
                                 <td class="py-3 px-6 text-left">{{ $status->order }}</td>
                                 <td class="py-3 px-6 text-left">

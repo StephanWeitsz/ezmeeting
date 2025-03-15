@@ -28,34 +28,33 @@ class Menu extends Component
                 ['label' => 'Corporate Users', 'route' => 'corporationsUser', 'auth' => true], 
                 ['label' => 'Departments', 'route' => 'corpDepartments','auth' => true],
                 ['label' => 'Managers', 'route' => 'departmentManagers','auth' => true],
-                ['label' => 'Roles', 'route' => 'roles','auth' => true],
-                
+                ['label' => 'Roles', 'route' => 'roles','auth' => 'Super User'],     
                 ['label' => 'Users', 'route' => 'corpUsers','auth' => true],
-
                 
-                ['label' => 'Meeting Status', 'route' => 'meetingStatus','auth' => true],
-                ['label' => 'Meeting Interval', 'route' => 'meetingInterval','auth' => true],
+                ['label' => 'Meeting Status', 'route' => 'meetingStatus','auth' => 'Super User'],
+                ['label' => 'Meeting Interval', 'route' => 'meetingInterval','auth' => 'Super User'],
                 ['label' => 'Meeting Locations', 'route' => 'meetingLocation','auth' => true],
-                ['label' => 'Meeting Roles', 'route' => 'underDevelopment','auth' => true],
-                
-                ['label' => 'Attendee Option', 'route' => 'underDevelopment','auth' => true],
+
+                ['label' => 'Meeting Delegate Roles', 'route' => 'meetingDelegateRole','auth' => 'Super User'],
+                ['label' => 'Meeting Attendee Status', 'route' => 'meetingAttendeeStatus','auth' => 'Super User'],
+                ['label' => 'Meeting Action Status', 'route' => 'meetingMinuteActionStatus','auth' => 'Super User'],
             ],
         ],
         [
             'label' => 'About Us',
-            'route' => '/about',
+            'route' => 'underDevelopment',
             'auth' => true,
             'submenus' => [],
         ],
         [
             'label' => 'Contact Us',
-            'route' => '/contact',
+            'route' => 'underDevelopment',
             'auth' => true,
             'submenus' => [],
         ],
         [
             'label' => 'Terms',
-            'route' => '/terms',
+            'route' => 'underDevelopment',
             'auth' => true,
             'submenus' => [],
         ],

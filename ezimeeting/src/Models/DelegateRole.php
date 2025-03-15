@@ -35,6 +35,12 @@ class DelegateRole extends Model
     protected $fillable = [
         'description',
         'text',
+        'is_active',
+    ];
+    
+    // Define the attributes that should be cast to native types
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Mudtec\Ezimeeting\Models\Role;
 
 
 class EzimeetingUserSeeder extends Seeder
@@ -15,6 +16,11 @@ class EzimeetingUserSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $superRole = Role::where('description', 'Super User')->first();
+        $adminRole = Role::where('description', 'Admin')->first();
+        $userRole = Role::where('description', 'User')->first();
+
         User::create([
             'name' => "admin",
             'email' => "stevewe@me.com",
@@ -22,17 +28,26 @@ class EzimeetingUserSeeder extends Seeder
             'IDnumber' => 'NA',
             'password' => bcrypt('Passw0rd'),
             'remember_token' => Str::random(10),
-        ]);
+        ])->assignRole($superRole);
 
         User::create([
             'name' => "Stephan Weitsz",
-            'email' => "stephan.weitsz@universal.co.za",
+            'email' => "jstevewe@gmail.com",
             'email_verified_at' => now(),
             'IDnumber' => 'NA',
             'password' => bcrypt('Passw0rd'),
             'remember_token' => Str::random(10),
-        ]);
+        ])->assignRole($adminRole);
 
-        User::factory()->count(10)->create();
+        User::create([
+            'name' => "Shawn Jordaan",
+            'email' => "darth.jordy@gmail.com",
+            'email_verified_at' => now(),
+            'IDnumber' => 'NA',
+            'password' => bcrypt('Passw0rd'),
+            'remember_token' => Str::random(10),
+        ])->assignRole($adminRole);
+
+        User::factory()->count(10)->create()->assignRole($userRole);
     }
 }

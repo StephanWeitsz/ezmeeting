@@ -25,16 +25,29 @@ class AdminController extends Controller
     }
 
     public function meetingstatus() {
-        return view('ezimeeting::admin.meetingstatus');
+        return view('ezimeeting::admin.meeting-status');
     }
 
     public function meetinginterval() {
-        return view('ezimeeting::admin.meetinginterval');
+        return view('ezimeeting::admin.meeting-interval');
     }
 
     public function meetinglocation() {
-        return view('ezimeeting::admin.meetinglocation');
+        return view('ezimeeting::admin.meeting-location');
     }
+
+    public function meetingdelegaterole() {
+        return view('ezimeeting::admin.meeting-delegate-role');
+    }
+
+    public function meetingattendeestatus() {
+        return view('ezimeeting::admin.meeting-attendee-status');
+    }
+
+    public function meetingminuteactionstatus() {
+        return view('ezimeeting::admin.meeting-minute-action-status');
+    }
+
 
 }
 

@@ -30,9 +30,13 @@ Route::middleware('web')->group(function () {
     Route::get('/admin/users', [CorpuserController::class, 'list'])->name('corpUsers');
     Route::get('/admin/users/{user}', [CorpuserController::class, 'edit'])->name('corpUserEdit');
 
-    Route::get('/admin/meeting_status/manager', [AdminController::class, 'meetingstatus'])->name('meetingStatus');
-    Route::get('/admin/meeting_interval/manager', [AdminController::class, 'meetinginterval'])->name('meetingInterval');
-    Route::get('/admin/meeting_location/manager', [AdminController::class, 'meetinglocation'])->name('meetingLocation');
+    Route::get('/admin/meeting/status/manager', [AdminController::class, 'meetingstatus'])->name('meetingStatus');
+    Route::get('/admin/meeting/interval/manager', [AdminController::class, 'meetinginterval'])->name('meetingInterval');
+    Route::get('/admin/meeting/location/manager', [AdminController::class, 'meetinglocation'])->name('meetingLocation');
+
+    Route::get('/admin/meeting/delegate/role/manager', [AdminController::class, 'meetingdelegaterole'])->name('meetingDelegateRole');
+    Route::get('/admin/meeting/attendee/status/manager', [AdminController::class, 'meetingattendeestatus'])->name('meetingAttendeeStatus');
+    Route::get('/admin/meeting/minute/action/status/manager', [AdminController::class, 'meetingminuteactionstatus'])->name('meetingMinuteActionStatus');
 
     Route::get('/admin/roles', [RoleController::class, 'roles'])->name('roles');
     Route::get('/admin/role/create', [RoleController::class, 'create'])->name('roleCreate');

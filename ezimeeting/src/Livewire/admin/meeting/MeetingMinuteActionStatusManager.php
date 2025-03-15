@@ -3,39 +3,42 @@
 namespace Mudtec\Ezimeeting\Livewire\Admin\Meeting;
 
 use Livewire\Component;
-use Mudtec\Ezimeeting\Models\MeetingStatus;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
-class MeetingStatusManager extends Component
-{
+use Mudtec\Ezimeeting\Models\MeetingMinuteActionStatus;
+
+class MeetingMinuteActionStatusManager extends Component
+{  
     public $description;
     public $text;
     public $color = '#000000';
     public $order = 1;
     public $is_active = true;
-    public $statusId;
+    
     public $statuses;
+    public $statusId;
 
-    public $page_heading = 'Meeting Statuses';
-    public $page_sub_heading = 'Manage Meeting Status';
+    public $page_heading = 'Meeting Minute Action Status';
+    public $page_sub_heading = 'Manage Meeting Minute Action Statuses';
 
     public function render()
     {
-        $this->statuses = MeetingStatus::orderBy('order')->get();
-        return view('ezimeeting::livewire.admin.meeting.meeting-status-manager');
+        $this->statuses = MeetingMinuteActionStatus::orderBy('order')->get();
+        return view('ezimeeting::livewire.admin.meeting.meeting-minute-action-status-manager');
     }
 
     public function createStatus()
     {
         $this->validate([
-            'description' => 'required|string|unique:meeting_statuses,description',
-            'text' => 'nullable|string',
-            'color' => 'required|string',
+            'description' => 'required|string|max:255',
+            'text' => 'required|string|max:255',
+            'color' => 'required|string|max:7',
             'order' => 'required|integer',
-            'is_active' => 'boolean',
+            'is_active' => 'required|boolean',
         ]);
 
-        MeetingStatus::create([
+        MeetingMinuteActionStatus::create([
             'description' => $this->description,
             'text' => $this->text,
             'color' => $this->color,
@@ -49,7 +52,7 @@ class MeetingStatusManager extends Component
 
     public function editStatus($id)
     {
-        $status = MeetingStatus::findOrFail($id);
+        $status = MeetingMinuteActionStatus::findOrFail($id);
 
         // Set fields to update
         $this->statusId = $status->id;
@@ -62,21 +65,17 @@ class MeetingStatusManager extends Component
 
     public function updateStatus()
     {
-
         if (!$this->statusId) return;
-
+        
         $this->validate([
-            'description' => [
-                'required', 'string',
-                Rule::unique('meeting_statuses', 'description')->ignore($this->statusId),
-            ],
-            'text' => 'nullable|string',
-            'color' => 'required|string',
+            'description' => 'required|string|max:255',
+            'text' => 'required|string|max:255',
+            'color' => 'required|string|max:7',
             'order' => 'required|integer',
-            'is_active' => 'boolean',
+            'is_active' => 'required|boolean',
         ]);
 
-        $status = MeetingStatus::findOrFail($this->statusId);
+        $status = MeetingMinuteActionStatus::findOrFail($this->statusId);
         $status->update([
             'description' => $this->description,
             'text' => $this->text,
@@ -91,7 +90,7 @@ class MeetingStatusManager extends Component
 
     public function deleteStatus($id)
     {
-        MeetingStatus::findOrFail($id)->delete();
+        MeetingMinuteActionStatus::findOrFail($id)->delete();
         session()->flash('success', 'Status Deleted');
         $this->resetForm();
     }
@@ -113,7 +112,7 @@ class MeetingStatusManager extends Component
 
     public function toggleActive($id)
     {
-        $status = MeetingStatus::findOrFail($id);
+        $status = MeetingMinuteActionStatus::findOrFail($id);
         $status->is_active = !$status->is_active;
         $status->save();
     }
