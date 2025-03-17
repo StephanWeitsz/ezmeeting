@@ -29,7 +29,7 @@ class Corporation extends Model
      * @var string
      */
     protected $table = 'corporations';
-
+    
     /**
      * The attributes that are mass assignable.
      *

@@ -6,10 +6,6 @@
     @include('ezimeeting::livewire.includes.warnings.success')
     @include('ezimeeting::livewire.includes.warnings.error')
 
-    <div wire:loading.delay>
-        <span class="text-green-500 m-2">Sending ...</span>
-    </div>
-
     <div class="container mx-auto bg-white shadow-md rounded-lg p-6 w-3/4">
         <div class="mb-4 bg-gray-200 shadow-md rounded-lg p-6">
             <label for="corporation" class="block text-sm font-medium text-gray-700">Select Corporation</label>
@@ -19,6 +15,9 @@
                     <option value="{{ $corporation->id }}">{{ $corporation->name }}</option>
                 @endforeach
             </select>
+            <div wire:loading wire:target='onCorporationSelected'>
+                <span class="text-green-500 m-2">Searching ...</span>
+            </div>
         </div>
               
         @if($selectedCorporation)
@@ -32,7 +31,7 @@
                 <h3>Departments</h3>
 
                 <div class="bg-white shadow-md rounded-lg p-6">
-                    <table class="min-w-max w-full table-auto">
+                    <table class="min-w-max table-fixed w-full">
                         <thead>
                             <tr class="bg-gray-300 text-gray-600 uppercase text-sm leading-normal">
                                 <th class="py-3 px-6 text-left">Name</th>
@@ -44,7 +43,7 @@
                             @foreach($departments as $department)
                                 <tr class="border-b border-gray-200 bg-gray-100 hover:bg-gray-200 hover:border-gray-300">
                                     <td class="py-3 px-6 text-left whitespace-nowrap">{{ $department->name }}</td>
-                                    <td class="py-3 px-6 text-left">{{ $department->description }}</td>
+                                    <td class="py-3 px-6 text-left truncate">{{ $department->description }}</td>
                                     <td class="py-3 px-6 text-left">
                                         <div class="relative">
 
@@ -72,7 +71,9 @@
             </div>
                  
             <div class="mt-4">
-                {{ $departments->links() }}
+                @if( $departments )
+                    {{ $departments->links() }}
+                @endif
             </div>
             
         @endif

@@ -9,7 +9,7 @@
             @include('ezimeeting::livewire.includes.search.search')
 
             <div class="bg-white shadow-md rounded-lg p-6">
-                <table class="min-w-max w-full table-auto">
+                <table class="min-w-max table-fixed w-full">
                     <thead>
                         <tr class="bg-gray-300 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Name</th>
@@ -22,7 +22,7 @@
                         @foreach($departments as $department)
                             <tr class="border-b border-gray-200 bg-gray-100 hover:bg-gray-200 hover:border-gray-300">
                                 <td class="py-3 px-6 text-left whitespace-nowrap">{{ $department->name }}</td>
-                                <td class="py-3 px-6 text-left">{{ $department->description }}</td>
+                                <td class="py-3 px-6 text-left truncate">{{ $department->description }}</td>
                                 <td class="py-3 px-6 text-left">{{ $department->created_at->format('Y-m-d') }}</td>
                                 <td class="py-3 px-6 text-left items-center justify-between space-x-2">
                                     <div class="flex items-center space-x-2"> 
@@ -53,12 +53,14 @@
             </div>
         </div>
     
-        {{ $departments->links() }}
-    
+        @if($departments)
+            {{ $departments->links() }}
+        @endif
+        
     </div> 
     
     <a href="{{ route('corpDepartments') }}" class="inline-flex items-center m-2 px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
-        Back
+        ← Back
     </a>
 
 </div>

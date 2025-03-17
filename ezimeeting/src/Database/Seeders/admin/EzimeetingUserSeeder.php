@@ -1,6 +1,6 @@
 <?php
 
-namespace Mudtec\Ezimeeting\Database\Seeders;
+namespace Mudtec\Ezimeeting\Database\Seeders\Admin;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,7 +21,7 @@ class EzimeetingUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $superRole = Role::where('description', 'Super User')->first();
+        $superRole = Role::where('description', 'SuperUser')->first();
         $adminRole = Role::where('description', 'Admin')->first();
         $userRole = Role::where('description', 'User')->first();
 
@@ -61,8 +61,7 @@ class EzimeetingUserSeeder extends Seeder
             'current_team_id' => null,
         ])->assignRole($adminRole);
 
-
-        for($i=0;$i<10;$i++) {
+        for($i=0;$i<100;$i++) {
             User::create([
                 'name' => fake()->name(),
                 'email' => fake()->unique()->safeEmail(),

@@ -65,7 +65,7 @@
     <div class="flex flex-col items-center justify-center py-2 bg-gray-200">
         <div class="container mx-auto px-4">
             <div class="bg-white shadow-md rounded-lg p-6">
-                <table class="min-w-max w-full table-auto pb-4">
+                <table class="min-w-max table-fixed w-full pb-4">
                     <thead>
                         <tr class="bg-gray-300 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Description</th>
@@ -80,7 +80,7 @@
                         @foreach ($statuses as $status)
                             <tr class="border-b border-gray-200 bg-gray-100 hover:bg-gray-200 hover:border-gray-300">
                                 <td class="py-3 px-6 text-left whitespace-nowrap">{{ $status->description }}</td>
-                                <td class="py-3 px-6 text-left">{{ $status->text }}</td>
+                                <td class="py-3 px-6 text-left truncate">{{ $status->text }}</td>
                                 <td class="py-3 px-6 text-left">
                                     <span class="inline-block w-6 h-6 rounded-full" style="background-color: {{ $status->color }};"></span>
                                 </td>

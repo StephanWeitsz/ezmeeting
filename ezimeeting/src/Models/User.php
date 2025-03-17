@@ -16,6 +16,8 @@ class User extends BaseUser
 {
     use HasFactory;
     
+    protected $table = 'users';
+    
     // Define a belongsToMany relationship with Role model   
     public function roles()
     {

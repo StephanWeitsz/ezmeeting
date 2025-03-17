@@ -10,7 +10,7 @@
 
             <div class="bg-white shadow-md rounded-lg p-6">
                 <div class="overflow-x-auto">
-                    <table class="min-w-max w-full table-auto">
+                    <table class="min-w-max table-fixed w-full">
                         <thead>
                             <tr class="bg-gray-300 text-gray-600 uppercase text-sm leading-normal">
                                 <th class="py-3 px-6 text-left">Logo</th>
@@ -27,10 +27,10 @@
                                     <td class="py-3 px-6 text-left whitespace-nowrap">
                                         <img src="{{ asset(Storage::url($corporation->logo)) }}" alt="Logo" class="w-32 h-32">
                                     </td>
-                                    <td class="py-3 px-6 text-left whitespace-nowrap">{{ Str::limit($corporation->name, 50) }}</td>
-                                    <td class="py-3 px-6 text-left whitespace-nowrap">{{ Str::limit($corporation->description, 150)  }}</td>
-                                    <td class="py-3 px-6 text-left whitespace-nowrap">{{ Str::limit($corporation->website, 25) }}</td>
-                                    <td class="py-3 px-6 text-left whitespace-nowrap">{{ $corporation->created_at->format('Y-m-d') }}</td>
+                                    <td class="py-3 px-6 text-left whitespace-nowrap">{{ $corporation->name }}</td>
+                                    <td class="py-3 px-6 text-left truncate">{{ $corporation->description }}</td>
+                                    <td class="py-3 px-6 text-left truncate">{{ $corporation->website }}</td>
+                                    <td class="py-3 px-6 text-left">{{ $corporation->created_at->format('Y-m-d') }}</td>
                                     <td class="py-3 px-6 text-left items-center justify-between space-x-2">
                                         <div class="flex items-center space-x-2">                                       
                                             <a href="{{ route('corporationsUpdate', ['corporation'=>$corporation->id]) }}" class="text-sm text-teal-500 font-semibold rounded hover:text-teal-800">
@@ -53,15 +53,18 @@
                             @endforeach
                         </tbody>
                     </table>
-
-                    <a href="{{ route('corporationsCreate') }}" class="inline-flex items-center m-2 px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
-                        Add New Record
-                    </a>
+                    @if(verify_user("SupperUser|Apdmin"))
+                        <a href="{{ route('corporationsCreate') }}" class="inline-flex items-center m-2 px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
+                            Add New Record
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
     
-        {{ $corporations->links() }}
-    
+        @if (!$corporations->isEmpty())
+            {{ $corporations->links() }}
+        @endif
+
     </div> 
 </div>

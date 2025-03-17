@@ -54,7 +54,7 @@
 
             <div class="flex items-center justify-between w-full">
                 <a href="{{ route('corporations') }}" class="inline-flex items-center px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
-                    Back
+                    ← Back
                 </a>
                 <button type="submit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700">
                     Update

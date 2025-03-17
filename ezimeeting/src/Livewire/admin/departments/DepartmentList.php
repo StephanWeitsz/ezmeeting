@@ -2,6 +2,7 @@
 
 namespace Mudtec\Ezimeeting\Livewire\Admin\Departments;
 
+use Mudtec\Ezimeeting\Models\Corporation;
 use Mudtec\Ezimeeting\Models\Department;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -24,6 +25,8 @@ class DepartmentList extends Component
     public function mount($corporation)
     {
         $this->corporation = $corporation;
+        $corpName = Corporation::findOrfail($corporation)->name;
+        $this->page_heading .= " For " . $corpName;
     }
 
     public function delete($corporation, $department) {

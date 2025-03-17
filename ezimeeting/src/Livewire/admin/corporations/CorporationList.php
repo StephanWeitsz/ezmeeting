@@ -15,6 +15,7 @@ class CorporationList extends Component
     public $editingCorporation;
 
     public $search;
+    //public $corporations;
 
     public $page_heading = 'Corporations';
     public $page_sub_heading = 'All companies';
@@ -36,8 +37,33 @@ class CorporationList extends Component
 
     public function render()
     {
+        if (verify_user("SuperUser|Admin")) {
+            $corporations = Corporation::latest()
+                ->where('name', 'ilike', "%{$this->search}%")
+                ->paginate(20);
+        } //if (verify_user("SuperUser|Admin")) { 
+        else {
+            $myCorporations = get_user_corporation();
+            
+            if ($myCorporations && $myCorporations->isNotEmpty()) {
+                $corporations = Corporation::latest()
+                    ->where('name', 'ilike', "%{$this->search}%")
+                    ->whereIn('id', $myCorporations->pluck('id'))
+                    ->paginate(20);
+            } else {
+                $corporations = collect();
+                session()->flash('error', 'There is no corporation you can access!');
+            }
+        } //else   
+        
+        /*
+        $this->corporations = $corporations;
+        return view('ezimeeting::livewire.admin.corporations.corporation-list');
+        */
+        
         return view('ezimeeting::livewire.admin.corporations.corporation-list', [
-            'corporations' => Corporation::latest()->where('name', 'ilike', "%{$this->search}%")->paginate(20)
+            'corporations' => $corporations
         ]);
-    } //public function render()
+      
+    }
 }

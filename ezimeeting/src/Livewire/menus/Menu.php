@@ -12,7 +12,7 @@ class Menu extends Component
             'route' => '#',
             'auth' => 'Organizer|Attendee',
             'submenus' => [
-                ['label' => 'Create Meeting', 'route' => 'underDevelopment', 'auth' => 'Organizer'],
+                ['label' => 'Create Meeting', 'route' => 'newMeeting', 'auth' => 'Organizer'],
                 ['label' => 'My Meetings', 'route' => 'underDevelopment','auth' => true],
                 ['label' => 'All Meetings', 'route' => 'underDevelopment','auth' => true],
                 ['label' => 'Meeting Schedule', 'route' => 'underDevelopment','auth' => true],
@@ -22,7 +22,7 @@ class Menu extends Component
         [
             'label' => 'Admin',
             'route' => '#',
-            'auth' => 'Super User|Admin',
+            'auth' => 'SuperUser|Admin',
             'submenus' => [
                 ['label' => 'Corporations', 'route' => 'corporations','auth' => true],
                 ['label' => 'Corporate Users', 'route' => 'corporationsUser', 'auth' => true], 
@@ -31,13 +31,13 @@ class Menu extends Component
                 ['label' => 'Roles', 'route' => 'roles','auth' => 'Super User'],     
                 ['label' => 'Users', 'route' => 'corpUsers','auth' => true],
                 
-                ['label' => 'Meeting Status', 'route' => 'meetingStatus','auth' => 'Super User'],
-                ['label' => 'Meeting Interval', 'route' => 'meetingInterval','auth' => 'Super User'],
+                ['label' => 'Meeting Status', 'route' => 'meetingStatus','auth' => 'SuperUser'],
+                ['label' => 'Meeting Interval', 'route' => 'meetingInterval','auth' => 'SuperUser'],
                 ['label' => 'Meeting Locations', 'route' => 'meetingLocation','auth' => true],
 
-                ['label' => 'Meeting Delegate Roles', 'route' => 'meetingDelegateRole','auth' => 'Super User'],
-                ['label' => 'Meeting Attendee Status', 'route' => 'meetingAttendeeStatus','auth' => 'Super User'],
-                ['label' => 'Meeting Action Status', 'route' => 'meetingMinuteActionStatus','auth' => 'Super User'],
+                ['label' => 'Meeting Delegate Roles', 'route' => 'meetingDelegateRole','auth' => 'SuperUser'],
+                ['label' => 'Meeting Attendee Status', 'route' => 'meetingAttendeeStatus','auth' => 'SuperUser'],
+                ['label' => 'Meeting Action Status', 'route' => 'meetingMinuteActionStatus','auth' => 'SuperUser'],
             ],
         ],
         [

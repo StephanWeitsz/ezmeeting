@@ -11,7 +11,7 @@
             @include('ezimeeting::livewire.includes.search.search')
             
             <div class="bg-white shadow-md rounded-lg p-6">
-                <table class="min-w-max w-full table-auto">
+                <table class="min-w-max table-fixed w-full">
                     <thead>
                         <tr class="bg-gray-300 text-gray-600 uppercase text-sm leading-normal">
                             <th class="py-3 px-6 text-left">Logo</th>
@@ -29,8 +29,8 @@
                                     <img src="{{ asset(Storage::url($corporation->logo)) }}" alt="Logo" class="w-32 h-32">
                                 </td>
                                 <td class="py-3 px-6 text-left whitespace-nowrap">{{ $corporation->name }}</td>
-                                <td class="py-3 px-6 text-left">{{ $corporation->description }}</td>
-                                <td class="py-3 px-6 text-left">{{ $corporation->website }}</td>
+                                <td class="py-3 px-6 text-left truncate">{{ $corporation->description }}</td>
+                                <td class="py-3 px-6 text-left truncate">{{ $corporation->website }}</td>
                                 <td class="py-3 px-6 text-left">{{ $corporation->created_at->format('Y-m-d') }}</td>
                                 <td class="py-3 px-6 text-left items-center justify-between space-x-2">
                                     <div class="flex items-center space-x-2"> 
@@ -54,7 +54,9 @@
             </div>
         </div>
     
-        {{ $corporations->links() }}
-    
+        @if($corporations)
+            {{ $corporations->links() }}
+        @endif
+
     </div>
 </div>

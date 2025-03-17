@@ -8,6 +8,7 @@ use Mudtec\Ezimeeting\Http\Controllers\CorporationController as CorporationContr
 use Mudtec\Ezimeeting\Http\Controllers\DepartmentController as DepartmentController;
 use Mudtec\Ezimeeting\Http\Controllers\CorpuserController as CorpuserController;
 use Mudtec\Ezimeeting\Http\Controllers\RoleController as RoleController;
+use Mudtec\Ezimeeting\Http\Controllers\MeetingController as MeetingController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -42,7 +43,8 @@ Route::middleware('web')->group(function () {
     Route::get('/admin/role/create', [RoleController::class, 'create'])->name('roleCreate');
     Route::get('/admin/role/{role}', [RoleController::class, 'role'])->name('roleUpdate');
 
-   
+    
+    Route::get('/meeting/new', [MeetingController::class, 'new'])->name('newMeeting');
 });
 
 

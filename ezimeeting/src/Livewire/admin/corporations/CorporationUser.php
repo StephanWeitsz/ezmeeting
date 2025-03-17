@@ -16,7 +16,8 @@ class CorporationUser extends Component
     public $corporations;
     public $selectedCorporation;
 
-    public $users;
+    public $search = '';
+    public $overRideUser = "";
     public $assignedUsers = [];
 
     public $page_heading = 'Corporation Users';
@@ -25,38 +26,92 @@ class CorporationUser extends Component
     public function mount()
     {
         $this->corporations = Corporation::all();
-        $this->users = collect();
+        //$this->users = collect();
     }
 
     public function onCorporationSelected($corporationId)
     {
-        $this->selectedCorporation = $corporationId;
-    
+        $this->selectedCorporation = $corporationId;   
         $corporation = Corporation::find($corporationId);
-                
-        $this->users = User::whereDoesntHave('corporations', function ($query) use ($corporationId) {
-            $query->where('corporations.id', '<>', $corporationId);
-        })
-        ->get();
-
         $this->assignedUsers = $corporation ? $corporation->users->pluck('id')->toArray() : [];
+        $corporation->users()->sync($this->assignedUsers);
+        $this->overRideUser = "";
     }
-    
+
+    public function toggleUserAssignment($userId)
+    {
+        if (in_array($userId, $this->assignedUsers)) {
+            $this->assignedUsers = array_diff($this->assignedUsers, [$userId]);
+        } else {
+            $this->assignedUsers[] = $userId;
+        }
+    }
+
     public function saveAssignments()
     {
         $corporation = Corporation::find($this->selectedCorporation);
-
         if ($corporation) {
             // Sync the assigned users
             $corporation->users()->sync($this->assignedUsers);
-            session()->flash('success', 'User assignments updated successfully!');
-        } else {
+            //session()->flash('success', 'User assignments updated successfully!');
+        } //if ($corporation) {
+        else {
             session()->flash('error', 'Please select a corporation before saving.');
-        }
+        } //else
+    }
+
+    public function overRideUsers() {
+        $this->overRideUser = 1;        
     }
 
     public function render()
     {
-        return view('ezimeeting::livewire.admin.corporations.corporation-user');
+        /*
+        $users = User::whereDoesntHave('corporations', function ($query) {
+            $query->where('corporations.id', '<>', $this->selectedCorporation);
+        })
+        ->where(function ($query) {
+            $query->where('name', 'ilike', "%{$this->search}%")
+                ->orWhere('email', 'ilike', "%{$this->search}%");
+        })->paginate(20);
+        */
+        
+        if($this->selectedCorporation) {
+
+            if($this->overRideUser) {
+                $availableUsers = User::where(function ($query) {
+                    $query->where('name', 'ilike', "%{$this->search}%")
+                    ->orWhere('email', 'ilike', "%{$this->search}%");
+                })->paginate(20);
+                if(!$availableUsers)
+                    $availableUsers = collect();
+            } //if($this->overRideUser) {
+            else {
+                $availableUsers = User::whereDoesntHave('corporations')
+                ->where(function ($query) {
+                    $query->where('name', 'ilike', "%{$this->search}%")
+                        ->orWhere('email', 'ilike', "%{$this->search}%");
+                })->paginate(20);
+                if(!$availableUsers)
+                    $availableUsers = collect();
+            } //else
+
+            $assignedUsers = User::whereHas('corporations', function ($query) {
+                $query->where('corporations.id', $this->selectedCorporation);
+            })
+            ->where(function ($query) {
+                $query->where('name', 'ilike', "%{$this->search}%")
+                    ->orWhere('email', 'ilike', "%{$this->search}%");
+            })->paginate(20);
+            if(!$assignedUsers)
+                $assignedUsers = collect();
+
+        }
+        else {
+            $availableUsers = collect();
+            $assignedUsers = collect();
+        } //else
+
+        return view('ezimeeting::livewire.admin.corporations.corporation-user', ['avaUsers' => $availableUsers, 'assUsers' => $assignedUsers]);
     }
 }

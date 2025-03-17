@@ -18,11 +18,11 @@ class DepartmentManager extends Component
     public $corporations;
     public $selectedCorporation;
 
-    public $departments;
+    //public $departments;
     public $selectedDepartment;
 
-    public $users;
     public $assignedUser = "";
+    public $users;
     public $managers = "";
 
     public $page_heading = 'Department Manager';
@@ -31,29 +31,12 @@ class DepartmentManager extends Component
     public function mount()
     {
         $this->corporations = Corporation::all();
-        $this->departments = collect();
         $this->users = collect();
     }
 
     public function onCorporationSelected($corporationId)
     {
         $this->selectedCorporation = $corporationId;
-        $this->departments = Department::where('corporation_id', $corporationId)
-                                        ->orderBy('name')
-                                        ->get();
-
-        $this->users = User::whereDoesntHave('corporations', 
-            function ($query) use ($corporationId) {
-                $query->where('corporations.id', '<>', $corporationId);
-            })
-            ->get();
-
-        //->paginate(20);
-
-        $this->managers = DepMan::whereIn('department_id', $this->departments->pluck('id'))
-                                ->get()
-                                ->keyBy('department_id')
-                                ->toArray();
     }
 
  
@@ -104,6 +87,37 @@ class DepartmentManager extends Component
 
     public function render()
     {
-        return view('ezimeeting::livewire.admin.departments.department-manager');
+        if($this->selectedCorporation) {
+            $corporationId = $this->selectedCorporation;
+            
+            $departments = Department::where('corporation_id', $corporationId )
+                                ->orderBy('name')
+                                ->paginate(20);
+            
+            $this->users = User::whereDoesntHave('corporations', 
+                function ($query) use ($corporationId) {
+                    $query->where('corporations.id', '=', $corporationId);
+                })->get();
+
+            $this->users = User::whereHas('corporations',
+                function ($query) {
+                    $query->where('corporations.id', $this->selectedCorporation);
+                })->get();
+
+            if ($departments) {
+                $this->managers = DepMan::whereIn('department_id', $departments->pluck('id'))
+                                        ->get()
+                                        ->keyBy('department_id')
+                                        ->toArray();
+            } //if ($departments) {
+            else {
+                $this->managers = [];
+            } //else
+        } //if($this->selectedCorporation) { 
+        else {
+            $departments = collect();
+        } //else
+
+        return view('ezimeeting::livewire.admin.departments.department-manager',['departments'=>$departments]);
     }
 }

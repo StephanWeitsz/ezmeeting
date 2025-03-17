@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreignId('meeting_interval_id')->constrained('meeting_intervals')->onDelete('cascade');
             $table->foreignId('meeting_status_id')->constrained('meeting_statuses')->onDelete('cascade');
             $table->foreignId('meeting_location_id')->constrained('meeting_locations')->onDelete('cascade');
+            $table->string('external_url')->nullable();
+            $table->foreignId('created_by_user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
