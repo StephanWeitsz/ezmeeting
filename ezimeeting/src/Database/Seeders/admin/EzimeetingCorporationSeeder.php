@@ -21,6 +21,8 @@ class EzimeetingCorporationSeeder extends Seeder
             'description' => fake()->text(200),
             'text' => fake()->text(200),
             'website' => fake()->url,
+            'email' => fake()->unique()->safeEmail(),
+            'secret' => 'St@rWar5Cl0ne3s',
             'logo' => fake()->randomElement(['logo1.png', 'logo2.png', 'logo3.png']),
         ]);
            
@@ -29,6 +31,7 @@ class EzimeetingCorporationSeeder extends Seeder
             'description' => fake()->text(200),
             'text' => fake()->text(200),
             'website' => fake()->url,
+            'email' => fake()->unique()->safeEmail(),
             'logo' => fake()->randomElement(['logo1.png', 'logo2.png', 'logo3.png']),
         ]);
 
@@ -38,6 +41,7 @@ class EzimeetingCorporationSeeder extends Seeder
                 'description' => fake()->text(200),
                 'text' => fake()->text(200),
                 'website' => fake()->url,
+                'email' => fake()->unique()->safeEmail(),
                 'logo' => fake()->randomElement(['logo1.png', 'logo2.png', 'logo3.png']),
             ]);
         }

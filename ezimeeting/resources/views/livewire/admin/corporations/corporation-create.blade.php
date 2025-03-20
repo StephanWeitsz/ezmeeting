@@ -33,9 +33,21 @@
             </div>
 
             <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700">eMail</label>
+                <input type="text" wire:model="email" id="email" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">
+                @error('email') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+            </div>
+
+            <div class="mb-4">
                 <label for="logo" class="block text-sm font-medium text-gray-700">Logo</label>
                 <input type="file" wire:model="logo" id="logo" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">
                 @error('logo') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+            </div>
+
+            <div class="mb-4">
+                <label for="secret" class="block text-sm font-medium text-gray-700">Secret</label>
+                <input type="password" wire:model="secret" id="secret" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">
+                @error('secret') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
             </div>
 
             <div wire:loading wire:target="logo">

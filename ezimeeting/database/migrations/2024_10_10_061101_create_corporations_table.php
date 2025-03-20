@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('text')->nullable();
             $table->string('website')->nullable();
+            $table->string('email')->nullable(false);
             $table->string('logo')->nullable();
+            $table->string('secret')->nullable();
             $table->timestamps();
         });
     }

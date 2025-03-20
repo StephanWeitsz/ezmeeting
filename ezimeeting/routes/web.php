@@ -2,21 +2,44 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Mudtec\Ezimeeting\Http\Middleware\RedirectToEzimeeting;
+
+/*
+Route::middleware([RedirectToEzimeeting::class])->group(function () {
+    Route::get('/corporation/register', [HomeController::class, 'home'])->name('ezimeetingHome');
+});
+*/
+
+
+
+
 use Mudtec\Ezimeeting\Http\Controllers\HomeController as HomeController;
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+use Mudtec\Ezimeeting\Http\Controllers\MailController as MailController;
+Route::post('/approve-request/{userid}/{corpid}', [MailController::class, 'approve'])->name('approveRequest');
+Route::post('/reject-request/{userid}/{corpid}', [MailController::class, 'reject'])->name('rejectRequest');
+
+use Mudtec\Ezimeeting\Http\Middleware\CheckCorporationMembership;
+use Mudtec\Ezimeeting\Http\Controllers\RegisterController as RegisterController;
+Route::middleware([CheckCorporationMembership::class])->group(function () {
+    
+});
+
 use Mudtec\Ezimeeting\Http\Controllers\AdminController as AdminController;
 use Mudtec\Ezimeeting\Http\Controllers\CorporationController as CorporationController;
 use Mudtec\Ezimeeting\Http\Controllers\DepartmentController as DepartmentController;
 use Mudtec\Ezimeeting\Http\Controllers\CorpuserController as CorpuserController;
 use Mudtec\Ezimeeting\Http\Controllers\RoleController as RoleController;
 use Mudtec\Ezimeeting\Http\Controllers\MeetingController as MeetingController;
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::middleware('web')->group(function () {  
+Route::middleware('web')->group(function () { 
+     
     Route::get('/underDevelopment', function () {
         return view('ezimeeting::underDevelopment');
     })->name('underDevelopment');
     
+    Route::get('/corporation/register', [RegisterController::class, 'register'])->name('corporationRegister');
+
     Route::get('/admin/corporations', [CorporationController::class, 'corporations'])->name('corporations');
     Route::get('/admin/corporations/create', [CorporationController::class, 'create'])->name('corporationsCreate');
     Route::get('/admin/corporations/update/{corporation}', [CorporationController::class, 'update'])->name('corporationsUpdate');

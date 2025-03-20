@@ -30,7 +30,9 @@ class CorporationCreate extends Component
             'name' => 'required',
             'description' => 'required',
             'website' => 'required',
+            'email' => 'required',
             'logo' => 'required|image|mimes:jpeg,png,jpg',
+            'secret' => 'required',
         ]);
 
         $logoPath = $this->logo->store('corporate/logos', 'public');
@@ -40,7 +42,9 @@ class CorporationCreate extends Component
             'description' => $this->description,
             'text' => $this->text,
             'website' => $this->website,
+            'email' => $this->email,
             'logo' => $logoPath,
+            'secret' => bcrypt($this->secret)
         ]);
 
         //$this->reset(['name', 'description','text', 'website', 'logo']);

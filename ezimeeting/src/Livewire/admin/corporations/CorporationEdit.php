@@ -17,6 +17,7 @@ class CorporationEdit extends Component
     public $description;
     public $text;
     public $website;
+    public $email;
     public $logo;
     public $logoPath;
 
@@ -30,6 +31,7 @@ class CorporationEdit extends Component
         $this->description = $corporation->description;
         $this->text = $corporation->text;
         $this->website = $corporation->website;
+        $this->email = $corporation->email;
         $this->logoPath = $corporation->logo;
         $this->logo = "";
     }
@@ -40,7 +42,9 @@ class CorporationEdit extends Component
             'name' => 'required',
             'description' => 'required',
             'website' => 'required',
+            'email' => 'email',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg',
+            'secret' => 'required',
         ]);
 
         if($this->logo)
@@ -53,7 +57,9 @@ class CorporationEdit extends Component
             'description' => $this->description,
             'text' => $this->text,
             'website' => $this->website,
+            'email' => $this->email,
             'logo' => $logoPath,
+            'secret' => bcrypt($this->secret)
         ]);
 
         //$this->reset(['name', 'description','text', 'website', 'logo']);

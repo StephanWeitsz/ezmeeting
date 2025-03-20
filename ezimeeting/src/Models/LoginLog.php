@@ -34,9 +34,15 @@ class LoginLog extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
+        'description',
         'user_id',
+        'email',
+        'ip_address',
         'login_at',
+        'browser',
+        'device',
+        'location',
     ];
 
     /**

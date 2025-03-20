@@ -41,6 +41,7 @@ class Corporation extends Model
         'description',
         'text',
         'website',
+        'email',
         'logo',
     ];
    

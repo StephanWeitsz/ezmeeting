@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Routing\Router;
+
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 
 use Illuminate\Console\Scheduling\Schedule;
@@ -18,10 +21,16 @@ use Illuminate\View\Compilers\BladeCompiler;
 use Mudtec\Ezimeeting\Http\Controllers\HomeController;
 //use Illuminate\Support\Facades\Gate;
 
+use Illuminate\Contracts\Http\Kernel;
+
 use Livewire\Livewire;
 
 use Mudtec\Ezimeeting\Models\User;
 use Mudtec\Ezimeeting\Policies\UserPolicy;
+
+use Mudtec\Ezimeeting\Http\Middleware\CheckCorporationMembership;
+use Mudtec\Ezimeeting\Listeners\eziMeetingLogin;
+use Mudtec\Ezimeeting\Listeners\eziMeetingRegister;
 
 //use Mudtec\Ezimeeting\Database\Seeders\EzimeetingDatabaseSeeder;
 
@@ -40,6 +49,7 @@ class EzimeetingProvider extends ServiceProvider
     {
         //$this->registerConfigs();
         $this->registerHelpers();
+        $this->registerListners();
         $this->registerMigrations();
         $this->registerRoutes();
         $this->registerViews();
@@ -47,6 +57,11 @@ class EzimeetingProvider extends ServiceProvider
         $this->registerPublishables();
         //$this->registerPolicies();
   
+    }
+
+    protected function registerListners() {
+        Event::listen(Login::class, eziMeetingLogin::class);
+        Event::listen(Registered::class, eziMeetingRegister::class);
     }
 
     protected function registerConfigs() {
@@ -82,6 +97,8 @@ class EzimeetingProvider extends ServiceProvider
 
     protected function registerLivewire() {
         Livewire::component('menu', \Mudtec\Ezimeeting\Livewire\Menus\Menu::class);
+
+        Livewire::component('corporationRegister', \Mudtec\Ezimeeting\Livewire\Registration\CorporationRegister::class);
 
         Livewire::component('corporationList', \Mudtec\Ezimeeting\Livewire\Admin\Corporations\CorporationList::class);
         Livewire::component('corporationCreate', \Mudtec\Ezimeeting\Livewire\Admin\Corporations\CorporationCreate::class);
@@ -130,6 +147,10 @@ class EzimeetingProvider extends ServiceProvider
     }
 
     public function registerRoutes() {
+
+        //$this->app['router']->pushMiddlewareToGroup(\Mudtec\Ezimeeting\Http\Middleware\RedirectToEzimeeting::class);
+        //$this->app['router']->pushMiddlewareToGroup('web', \Mudtec\Ezimeeting\Http\Middleware\CheckCorporationMembership::class);
+        
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
     }
 

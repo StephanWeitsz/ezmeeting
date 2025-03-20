@@ -22,6 +22,45 @@ if(!function_exists('verify_user')) {
 
 } //if(!function_exists('verify_user')) {
 
+if(!function_exists('hasCorp')) {
+  
+    function hasCorp() {
+        if(auth()->check()) {
+            $user = User::find(auth()->id());
+            if($user->corporations()->exists())
+                return true;
+            else
+                return false;
+        }
+        return false;
+    }
+}
+
+if(!function_exists('verify_corp')) {
+  
+    function verify_corp($id) {
+        $user = User::find(auth()->id());
+        if($user->corporations()->exists() && $user->corporations()->first()->id == $id)
+            return true;
+        else
+            return false;
+    }
+} 
+
+if(!function_exists('systemPasscode')) {
+  
+    function systemPassCode() {
+        $sysPassCode = "";
+        $sysDate = date("Ymd");
+        $sysIncrement = date("m");
+        $sysOffset = date("Y");
+        $sysPassCode = $sysDate * $sysIncrement + $sysOffset;
+        $sysPassCode = abs($sysPassCode % 1000000);
+        $sysPassCode = substr($sysPassCode, -6);
+        return $sysPassCode;
+    }
+} 
+
 if(!function_exists('get_user_corporation')) {
     function get_user_corporation() {
         $user = User::with('corporations')->find(auth()->id());

@@ -13,6 +13,18 @@
         </div>
 
         @auth
+            @if(session('success'))
+                <div class="bg-green-100 p-4 mb-2 rounded-md shadow-md">
+                    <span class='text-green-800'> {{ session('success') }} </span>
+                </div>
+            @endif
+            
+            @if(!hasCorp())
+                <div class="bg-red-100 border border-red-400 text-center mt-10 p-5 rounded">
+                    <p class="text-gray-900"><strong>You don't have any corporations yet. Please add one to take part in meetings.</strong></p>
+                    <a class="px-3 py-2 text-lg text-gray-900 bg-red-400 rounded mt-5 inline-block" href="{{ route('corporationRegister') }}"><strong>LINK USER TO COTPOTATION</strong></a>
+                </div>
+            @endif
             <main class="container mx-auto px-5 flex flex-grow">
                 <div class="mb-10">
                     <div class="mb-16">
