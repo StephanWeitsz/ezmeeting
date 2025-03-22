@@ -42,16 +42,18 @@ class Meeting extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'description',
         'text',
         'purpose',
         'department_id',
-        'schedules_at',
+        'scheduled_at',
         'duration',
         'meeting_interval_id',
         'meeting_status_id',
         'meeting_location_id',
+        'external_url',
+        'created_by_user_id',
     ];
 
     /**
@@ -60,7 +62,7 @@ class Meeting extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'schedules_at' => 'datetime',
+        'scheduled_at' => 'datetime',
         'duration' => 'integer',
     ];
 
@@ -70,6 +72,12 @@ class Meeting extends Model
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function delegates()
+    {
+        return $this->belongsToMany(MeetingDelegate::class, 'meeting_meeting_delegate')
+            ->withTimestamps();
     }
 
     /**

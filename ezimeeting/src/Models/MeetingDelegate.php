@@ -16,8 +16,8 @@ class MeetingDelegate extends Model
      */
     protected $fillable = [
         'meeting_id',
-        'display_name',
-        'email',
+        'delegate_name',
+        'delegate_email',
         'delegate_role_id',
         'is_active',
     ];
@@ -31,6 +31,16 @@ class MeetingDelegate extends Model
         'is_active' => 'boolean',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'delegate_email', 'email');
+    }
+    
+    public function meetings()
+    {
+        return $this->belongsToMany(Meeting::class, 'meeting_meeting_delegate')
+            ->withTimestamps();
+    }
 
     public function minutes()
     {

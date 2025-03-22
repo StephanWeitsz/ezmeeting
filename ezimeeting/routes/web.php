@@ -68,6 +68,7 @@ Route::middleware('web')->group(function () {
 
     
     Route::get('/meeting/new', [MeetingController::class, 'new'])->name('newMeeting');
+    Route::get('/meeting/new/delegates/{corpId}/{meetingId}', [MeetingController::class, 'delegates'])->name('newMeetingDelegates');
 });
 
 

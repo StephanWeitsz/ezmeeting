@@ -116,7 +116,7 @@
                             </div>
                         </div>
                     </div>
-                </div>              
+                </div>
             </div>
             
             @if(verify_user("SuperUser|Admin|CorpAdmin"))

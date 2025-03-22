@@ -10,10 +10,10 @@ class Menu extends Component
         [
             'label' => 'Meetings',
             'route' => '#',
-            'auth' => 'Organizer|Attendee',
+            'auth' => 'SuperUser|Admin|Organizer|Attendee',
             'submenus' => [
-                ['label' => 'Create Meeting', 'route' => 'newMeeting', 'auth' => 'Organizer'],
-                ['label' => 'My Meetings', 'route' => 'underDevelopment','auth' => true],
+                ['label' => 'Create Meeting', 'route' => 'newMeeting', 'auth' => 'SuperUser|Admin|Organizer'],
+                ['label' => 'My Meetings', 'route' => 'underDevelopment','auth' => 'Attendee'],
                 ['label' => 'All Meetings', 'route' => 'underDevelopment','auth' => true],
                 ['label' => 'Meeting Schedule', 'route' => 'underDevelopment','auth' => true],
                 ['label' => 'Meeting Report', 'route' => 'underDevelopment','auth' => true],

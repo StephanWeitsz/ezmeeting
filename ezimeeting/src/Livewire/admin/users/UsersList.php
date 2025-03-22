@@ -43,6 +43,12 @@ class usersList extends Component
         }
     }
     
+    public function corpDeleteUser($user) 
+    {
+        $this->user = User::find($user);
+        $this->user->delete();
+    }
+
     public function render()
     {
         $users = User::query()

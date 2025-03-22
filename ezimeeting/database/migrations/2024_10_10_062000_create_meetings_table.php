@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('text')->nullable();
             $table->string('purpose')->nullable();
             $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
-            $table->timestamp('schedules_at');
+            $table->timestamp('scheduled_at');
             $table->integer('duration');
             $table->foreignId('meeting_interval_id')->constrained('meeting_intervals')->onDelete('cascade');
             $table->foreignId('meeting_status_id')->constrained('meeting_statuses')->onDelete('cascade');

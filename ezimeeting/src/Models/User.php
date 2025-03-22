@@ -48,4 +48,10 @@ class User extends BaseUser
         return $this->hasMany(LoginLog::class);
     }
 
+    public function meetingDelegates()
+    {
+        return $this->hasMany(MeetingDelegate::class, 'delegate_email', 'email');
+        
+    }
+
 }

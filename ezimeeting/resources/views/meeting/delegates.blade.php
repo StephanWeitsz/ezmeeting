@@ -6,7 +6,7 @@
         <div class="flex flex-col w-full">
             <div class="p-5 bg-gray-400 border border-gray-800">
                 <div class="card-body">
-                    @livewire('newMeeting')
+                    @livewire('newMeetingDelegates', ['meetingId' => $meetingId, 'corpId' => $corpId])
                 </div>
             </div>
         </div>
