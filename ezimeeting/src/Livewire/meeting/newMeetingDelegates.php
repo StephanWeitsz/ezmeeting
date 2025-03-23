@@ -56,12 +56,18 @@ class NewMeetingDelegates extends Component
         $this->corpid = $corpId;
         
         $this->user = User::find(auth()->id());
-        $this->avaUsers = User::whereHas('corporations', function ($query) {
+        $this->avaUsers = User::whereHas('corporations', function ($query) {          
             $query->where('corporation_id', $this->corpid);
-        })->whereDoesntHave('meetingDelegates', function ($query) {
+        })
+        ->whereDoesntHave('meetingDelegates', function ($query) {
             $query->where('meeting_id', $this->meetingId)
                   ->where('is_active', true);
-        })->get();
+        })
+        ->where(function ($query) {
+            $query->where('name', 'ilike', "%{$this->search}%")
+                  ->orWhere('email', 'ilike', "%{$this->search}%");
+        })
+        ->get();
         
         $this->meeting = Meeting::find($this->meetingId);
         $this->description = $this->meeting->description;
@@ -78,6 +84,10 @@ class NewMeetingDelegates extends Component
       
         $this->assUsers = MeetingDelegate::where('meeting_id', $this->meetingId)
             ->where('is_active', true)
+            ->where(function ($query) {
+                $query->where('delegate_name', 'ilike', "%{$this->search}%")
+                      ->orWhere('delegate_email', 'ilike', "%{$this->search}%");
+            })
             ->get();
     }
 
@@ -123,7 +133,8 @@ class NewMeetingDelegates extends Component
                 } //catch (\Exception $e) {    
             } //else
         } //foreach ($this->assUsers as $userId) {
-        
+       
+
         $this->avaUsers = User::whereHas('corporations', function ($query) {
             $query->where('corporation_id', $this->corpid);
         })->whereDoesntHave('meetingDelegates', function ($query) {
@@ -139,6 +150,7 @@ class NewMeetingDelegates extends Component
 
         $this->assignedUsers = []; // Reset the assignedUsers array
         $this->removeUsers = [];
+        $this->search = "";
     }
 
     public function removeAssignments() 
@@ -189,6 +201,7 @@ class NewMeetingDelegates extends Component
 
         $this->assignedUsers = []; // Reset the assignedUsers array
         $this->removeUsers = []; // Reset the removeUsers array
+        $this->search = "";
     }
 
     public function showAdhocUser()
@@ -262,8 +275,8 @@ class NewMeetingDelegates extends Component
 
         $this->assignedUsers = []; // Reset the assignedUsers array
         $this->removeUsers = [];
+        $this->search = "";
         $this->displayAdhocUser = false;
-
     } 
 
     public function hideAdhocUser()

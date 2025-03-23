@@ -1,9 +1,8 @@
 <x-ezim::ezimeeting>
     @section('content')
-       
-        <div class="w-full text-center py-32">
+        <div class="w-full text-center py-24">
             <h1 class="text-2xl md:text-3xl font-bold text-center lg:text-5xl text-gray-700">
-                Welcome to <span class="text-yellow-500">&lt;MUDTEC&gt;</span> <span class="text-gray-900"> eziMeeting</span>
+                Welcome to <span class="text-yellow-500">{{ config('app.name', 'mudTeck*') }}</span> <span class="text-gray-900"> eziMeeting</span>
             </h1>
             <p class="text-gray-500 text-lg mt-1">Manage meetings with minites and actions on the fly</p>
             <!--
@@ -20,92 +19,84 @@
             @endif
             
             @if(!hasCorp() and !verify_user('SuperUser|Admin'))
-                <div class="bg-red-100 border border-red-400 text-center mt-10 p-5 rounded">
+                <div class="bg-red-100 border border-red-400 text-center mt-5 p-5 rounded">
                     <p class="text-gray-900"><strong>You don't have any corporations yet. Please add one to take part in meetings.</strong></p>
                     <a class="px-3 py-2 text-lg text-gray-900 bg-red-400 rounded mt-5 inline-block" href="{{ route('corporationRegister') }}"><strong>LINK USER TO COTPOTATION</strong></a>
                 </div>
             @endif
+            
             <main class="container mx-auto px-5 flex flex-grow">
-                <div class="mb-10">
-                    <div class="mb-16">
-                        <h2 class="mt-16 mb-5 text-3xl text-yellow-500 font-bold">My Meetings</h2>
-                        <div class="w-full">
-                            <div class="grid grid-cols-3 gap-10 w-full">
+                <div class="mb-5">
+                    <h2 class="my-5 text-3xl text-yellow-500 font-bold">My Meetings</h2>
+                    <div class="w-full">
+                        <div class="grid grid-cols-6 gap-10 w-full">
 
-                                <div class="md:col-span-1 col-span-3">
-                                    <a href="http://127.0.0.1:8000/blog/laravel-34">
-                                        <div>
-                                            <img class="w-full rounded-xl"
-                                                src="http://127.0.0.1:8000/storage/3i5uKG05UnvhbORZ3ieDkvtAOL8ss5-metaZXAxNSAoMjIpLnBuZw==-.png">
-                                        </div>
-                                    </a>
-                                    <div class="mt-3">
-                                        <div class="flex items-center mb-2">
-                                            <a href="http://127.0.0.1:8000/categories/laravel" class="bg-red-600 
-                                                text-white 
-                                                rounded-xl px-3 py-1 text-sm mr-3">
-                                                Laravel
-                                            </a>
-                                            <p class="text-gray-500 text-sm">2023-09-05</p>
-                                        </div>
-                                        <a class="text-xl font-bold text-gray-900">Laravel 10 tutorial feed page #34</a>
-                                    </div>
-                                </div>
-
-                                <div class="md:col-span-1 col-span-3">
-                                    <a href="http://127.0.0.1:8000/blog/fil3tutorial">
-                                        <div>
-                                            <img class="w-full rounded-xl"
-                                                src="http://127.0.0.1:8000/storage/4sEsCDleYEXT4GC7AdU8BP7TBab3cx-metaZmlsYW1lbnQgY291cnNlICg0KS5wbmc=-.png">
-                                        </div>
-                                    </a>
-                                    <div class="mt-3">
-                                        <div class="flex items-center mb-2">
-                                            <a href="http://127.0.0.1:8000/categories/PHP" class="bg-blue-400 
-                                                text-white 
-                                                rounded-xl px-3 py-1 text-sm mr-3">
-                                                PHP</a>
-                                            <p class="text-gray-500 text-sm">2023-09-04</p>
-                                        </div>
-                                        <a class="text-xl font-bold text-gray-900">Filament 3 relationship manager tutorial
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="md:col-span-1 col-span-3">
-                                
-                                        <div>
-                                            <img class="w-full rounded-xl"
-                                                src="https://via.placeholder.com/640x480.png/0000ee?text=corrupti">
-                                        </div>
-                                        <div class="mt-3">
-                                            <div class="flex items-center mb-2">
-                                                <p class="text-gray-500 text-sm">2023-08-29</p>
+                            @if(isset($meetings))
+                                @foreach($meetings as $meeting)
+                                    
+                                    <div class="md:col-span-1 lg:col-span-2 col-span-4">
+                                        {{--
+                                        <a href="http://127.0.0.1:8000/blog/laravel-34">
+                                            <div>
+                                                <img class="w-full rounded-xl"
+                                                    src="http://127.0.0.1:8000/storage/3i5uKG05UnvhbORZ3ieDkvtAOL8ss5-metaZXAxNSAoMjIpLnBuZw==-.png">
                                             </div>
-                                            <a class="text-xl font-bold text-gray-900">Mary Berge</a>
-                                        </div>
-                                </div>
+                                        </a>
+                                        --}}
+                                        <div class="mt-3 border border-black rounded-lg p-4 shadow-lg">
+                                            <div class="flex items-center mb-2">
+                                                <a href="#" class="text-white rounded-xl px-3 py-1 text-sm mr-3" style="background-color: {{ get_meeting_color($meeting->meeting_status_id) ?? sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }};">
+                                                    {{ get_meeting_status($meeting->meeting_status_id) }}
+                                                </a>    
+                                                <p class="text-gray-500 text-sm">{{ \Carbon\Carbon::parse($meeting->scheduled_at)->format('Y-m-d H:i') }}</p>
+                                                <span class="text-gray-500 text-sm px-3">{{$meeting->duration}} minutes</span>
+                                            </div>
+                                            <h3 class="text-xl font-semibold text-gray-700 pt-4">{{$meeting->description}}</h3>
+                                            <h4 class="text-lg font-semibold text-gray-700 pt-2">About</h4>
+                                            <p class="text-md text-gray-600 ">{{$meeting->text}}</p>
+                                            <h4 class="text-lg font-semibold text-gray-700 pt-2">Purpose</h4>
+                                            <a class="text-lg text-gray-600">{{$meeting->purpose}}</a>
 
-                            </div>
+                                            <div class="py-2">
+                                                <span class="text-md text-green-600">Meeting Ocurance : {{get_meeting_interval($meeting->meeting_interval_id)}}</span>
+                                            </div>
+                                            <div class="py-2">
+                                                <span  class="text-md text-green-600">Location : {{get_meeting_location($meeting->meeting_location_id)}}</span>
+                                            </div>
+
+                                            @if(isset($meeting->external_url))
+                                                <div class="p-2">
+                                                    <a href="{{$meeting->external_url}}" class="text-lg text-gray-600">Meeting Link</a>
+                                                </div>
+                                            @endif
+
+                                            <div class="flex justify-between mt-5">
+                                                <a href="{{-- route('meeting.show', $meeting->id) --}}#" class="text-yellow-500 font-semibold">View</a>
+                                                <a href="{{-- route('meeting.edit', $meeting->id) --}}#" class="text-yellow-500 font-semibold">Edit</a>
+                                                <a href="{{-- route('meeting.close', $meeting->id) --}}#" class="text-red-500 font-semibold">Close</a>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                @endforeach                                
+                            @endif 
                         </div>
+                    </div>
+                    <div class="w-full text-center">
                         <a class="mt-10 block text-center text-lg text-yellow-500 font-semibold"
                             href="http://127.0.0.1:8000/blog">More...
                         </a>
                     </div>
+                </div>
+                <hr>
+            </main>  
+        @else
+            <main class="container mx-auto px-5 flex flex-grow">
+                <div class="mb-5">
+                    <h2 class="mt-16 mb-5 text-center text-3xl text-yellow-500 font-bold">Please Login</h2>
+                    <a class="px-3 py-2 text-lg text-white bg-gray-800 rounded mt-5 inline-block" href="{{ route('dashboard') }}">Go to Dashboard</a>
                     <hr>
                 </div>
             </main>  
-        @else
-        <main class="container mx-auto px-5 flex flex-grow">
-            <div class="mb-10">
-                <div class="mb-16">
-                    <!--
-                    <h2 class="mt-16 mb-5 text-center text-3xl text-yellow-500 font-bold">Please Login</h2>
-                    -->
-                </div>
-                <hr>
-            </div>
-        </main>  
         @endauth
     @endsection
 </x-ezim::ezimeeting>

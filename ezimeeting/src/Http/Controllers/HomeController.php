@@ -22,7 +22,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        Log::info("Landing Page");
+        Log::info("eziMeeting Landing Page");
 
         if(auth()->check()) {
             $user = User::find(Auth::id());
@@ -31,10 +31,26 @@ class HomeController extends Controller
                 return view('ezimeeting::admin.corporations.corporationRegister');
             }
         }
+	    Log::info("Navigate to eziMeeting Home");
+        $meetings = [];
+        if (auth()->check()) {
+            $user = User::find(Auth::id());
+            //$meetings = $user->corporations()->with('departments.meetings')->get()->pluck('departments')->flatten()->pluck('meetings')->flatten();
 
-	    Log::info("Navigate to Dashboard");
-        return view('ezimeeting::home');
-        
+            $meetings = $user->corporations()
+                ->with(['departments.meetings' => function($query) {
+                    $query->orderBy('scheduled_at', 'desc');
+                }])
+                ->get()
+                ->pluck('departments')
+                ->flatten()
+                ->pluck('meetings')
+                ->flatten()
+                ->take(5);
+
+            Log::info("User has access to " . count($meetings) . " meetings");
+        }
+        return view('ezimeeting::home', compact('meetings'));
     }
 }
 

@@ -6,13 +6,17 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center text-gray-800 font-semibold">
                     @if(auth()->check())
+                        <a href="{{ route('home') }}" style="display: flex; align-items: center;">
+                        <span class="text-yellow-500 text-xl ml-2">eziMeeting</span>
+                        </a>
+
                         <a href="{{ route('dashboard') }}" style="display: flex; align-items: center;">
                             <x-application-mark class="block h-9 w-auto" />
-                            <span class="text-yellow-500 text-xl ml-2">eziMeeting</span>
+                            <span class="text-yellow-500 text-xl ml-2">Dashboard</span>
                         </a>
                     @else
-                        <a href="{{ route('home') }}" style="display: flex; align-items: center;">
-                            <span class="text-yellow-500 text-xl ml-2">&lt;MUDTEC&gt;</span> eziMeeting
+                        <a href="{{ route('dashboard') }}" style="display: flex; align-items: center;">
+                            <span class="text-yellow-500 text-xl ml-2">&lt;{{ config('app.name', 'mudTeck*') }}&gt;</span> eziMeeting**
                         </a>
                     @endif
                 </div>
