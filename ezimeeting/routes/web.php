@@ -71,6 +71,11 @@ Route::middleware('web')->group(function () {
     
     Route::get('/eziMeeting/meeting/new', [MeetingController::class, 'new'])->name('newMeeting');
     Route::get('/eziMeeting/meeting/new/delegates/{corpId}/{meetingId}', [MeetingController::class, 'delegates'])->name('newMeetingDelegates');
+    Route::get('/eziMeeting/meeting/list', [MeetingController::class, 'list'])->name('meetingList');
+    Route::get('/eziMeeting/meeting/view/{meeting}', [MeetingController::class, 'view'])->name('meetingView');
+    Route::get('/eziMeeting/meeting/edit/{meeting}', [MeetingController::class, 'edit'])->name('meetingEdit');
+
+
 });
 
 

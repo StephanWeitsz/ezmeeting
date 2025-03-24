@@ -13,8 +13,8 @@ class Menu extends Component
             'auth' => 'SuperUser|Admin|Organizer|Attendee',
             'submenus' => [
                 ['label' => 'Create Meeting', 'route' => 'newMeeting', 'auth' => 'SuperUser|Admin|Organizer'],
-                ['label' => 'My Meetings', 'route' => 'underDevelopment','auth' => 'Attendee'],
-                ['label' => 'All Meetings', 'route' => 'underDevelopment','auth' => true],
+                ['label' => 'My Meetings', 'route' => 'underDevelopment','auth' => 'SuperUser|Admin|Organizer'],
+                ['label' => 'All Meetings', 'route' => 'meetingList','auth' => 'SuperUser|Admin|CorpAdmin|Organizer|Attendee'],
                 ['label' => 'Meeting Schedule', 'route' => 'underDevelopment','auth' => true],
                 ['label' => 'Meeting Report', 'route' => 'underDevelopment','auth' => true],
             ],

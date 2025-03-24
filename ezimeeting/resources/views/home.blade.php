@@ -71,9 +71,15 @@
                                             @endif
 
                                             <div class="flex justify-between mt-5">
-                                                <a href="{{-- route('meeting.show', $meeting->id) --}}#" class="text-yellow-500 font-semibold">View</a>
-                                                <a href="{{-- route('meeting.edit', $meeting->id) --}}#" class="text-yellow-500 font-semibold">Edit</a>
-                                                <a href="{{-- route('meeting.close', $meeting->id) --}}#" class="text-red-500 font-semibold">Close</a>
+                                                @if(verify_user('Organizer|Attendee'))
+                                                    <a href="{{ route('meetingView', $meeting->id) }}" class="text-yellow-500 font-semibold">View</a>
+                                                @endif
+                                                @if(verify_user('Organizer|CorpAdmin'))    
+                                                    <a href="{{ route('meetingEdit', $meeting->id) }}" class="text-yellow-500 font-semibold">Edit</a>
+                                                @endif
+                                                @if(verify_user('Organizer|CorpAdmin'))
+                                                    <a href="{{-- route('meeting.close', $meeting->id) --}}#" class="text-red-500 font-semibold">Close</a>
+                                                @endif
                                             </div>    
                                         </div>
                                     </div>
@@ -83,7 +89,7 @@
                     </div>
                     <div class="w-full text-center">
                         <a class="mt-10 block text-center text-lg text-yellow-500 font-semibold"
-                            href="http://127.0.0.1:8000/blog">More...
+                            href="{{ route('meetingList') }}">More...
                         </a>
                     </div>
                 </div>

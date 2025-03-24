@@ -42,6 +42,11 @@ class MeetingDelegate extends Model
             ->withTimestamps();
     }
 
+    public function role()
+    {
+        return $this->belongsTo(DelegateRole::class, 'delegate_role_id');
+    }
+
     public function minutes()
     {
         return $this->belongsToMany(MeetingMinute::class, 'meeting_attendees')

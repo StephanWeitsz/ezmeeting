@@ -73,6 +73,27 @@ if(!function_exists('get_user_department')) {
     }
 } //if(!function_exists('get_user_department')) {
 
+if(!function_exists('get_corporation_name')) {
+    function get_corporation_name($id) {
+        $corp = Department::where('id', $id)->first()->corporation()->first();
+        return $corp->name;
+    }
+} //if(!function_exists('get_user_corporation_name')) {
+
+if(!function_exists('get_corporation_logo')) {
+    function get_corporation_logo($id) {
+        $corp = Department::where('id', $id)->first()->corporation()->first();
+        return $corp->logo;
+    }
+} //if(!function_exists('get_user_corporation_name')) {
+
+if(!function_exists('get_department_name')) {
+    function get_department_name($id) {
+        $dep = Department::find($id);
+        return $dep->name;
+    }
+} //if(!function_exists('get_user_department_name')) {
+
 if(!function_exists('get_meeting_interval')) {
     function get_meeting_interval($id) {
         $meetingInterval = MeetingInterval::find($id);
@@ -99,5 +120,12 @@ if(!function_exists('get_meeting_location')) {
     function get_meeting_location($id) {
         $meetingLocation = MeetingLocation::find($id);
         return $meetingLocation->description;
+    }
+} //if(!function_exists('get_meeting_location')) {
+
+if(!function_exists('get_user_name')) {
+    function get_user_name($id) {
+        $user = User::find($id);
+        return $user->name;
     }
 } //if(!function_exists('get_meeting_location')) {

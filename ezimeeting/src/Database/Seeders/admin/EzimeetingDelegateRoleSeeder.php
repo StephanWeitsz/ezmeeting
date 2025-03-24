@@ -16,19 +16,13 @@ class EzimeetingDelegateRoleSeeder extends Seeder
     public function run(): void
     {
         DelegateRole::create([
-            'description' => "Minute Taker",
+            'description' => "Scribe",
             'text' => fake()->text(200),
             'is_active' => true, 
         ]);
 
         DelegateRole::create([
             'description' => "Attendee",
-            'text' => fake()->text(200),
-            'is_active' => true, 
-        ]);
-
-        DelegateRole::create([
-            'description' => "Orgeniser",
             'text' => fake()->text(200),
             'is_active' => true, 
         ]);
@@ -44,13 +38,7 @@ class EzimeetingDelegateRoleSeeder extends Seeder
             'text' => fake()->text(200),
             'is_active' => true, 
         ]);
-
-        DelegateRole::create([
-            'description' => "Pane Member",
-            'text' => fake()->text(200),
-            'is_active' => true, 
-        ]);
-
+        
         DelegateRole::create([
             'description' => "Speaker",
             'text' => fake()->text(200),
