@@ -76,31 +76,33 @@ RUN composer create laravel/laravel portal
 
 # Setup MUD packages
 RUN mkdir -p  packages
-COPY mudtech/. ./packages
+COPY ezimeeting/. ./packages
+
+# trouble shooting from here check if laravel is installed and package was copied
 
 # Require telescope
-RUN composer require laravel/telescope
+#RUN composer require laravel/telescope
 
 # Install Telescope
-RUN php artisan telescope:install
+#RUN php artisan telescope:install
 
 # Require Jetscreem and liveWire
-RUN composer require laravel/jetstream
+#RUN composer require laravel/jetstream
 
 # Install Jetstream with Livewire scafolding
-RUN php artisan jetstream:install livewire  --teams
+#RUN php artisan jetstream:install livewire  --teams
 
 # Install NPM dependencies and build assets
-RUN npm install && npm run build
+#RUN npm install && npm run build
 
 #RUN composer install --no-dev
-RUN composer install
-RUN composer update
-RUN chown -R nobody:nobody /var/www/html/storage
+#RUN composer install
+#RUN composer update
+#RUN chown -R nobody:nobody /var/www/html/storage
 
 # Run database migrations
-RUN php artisan migrate
-RUN php artisan db:seed --class="Mudtec\\Ezimeeting\\Database\\Seeders\\EzimeetingDatabaseSeeder"
+#RUN php artisan migrate
+#RUN php artisan db:seed --class="Mudtec\\Ezimeeting\\Database\\Seeders\\EzimeetingDatabaseSeeder"
 
 EXPOSE 80
 CMD ["supervisord", "-c", "/etc/supervisor.d/supervisord.ini"]

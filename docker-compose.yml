@@ -5,8 +5,7 @@ services:
     container_name: 'mud-portal'
     image: 'laravel-alpine:latest'
     volumes:
-      - './ezimeeting:/var/www/html'
-      - './packages:/var/www/html/packages'
+      - './ezimeeting:/var/www/html/packages/mudtec/'
     ports:
       - "9010:80"
     networks:
