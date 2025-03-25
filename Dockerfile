@@ -74,14 +74,9 @@ RUN composer create laravel/laravel portal
 
 # Building process if needed (installer failes) - Run laravel setup seperatley and perform actions from this point on  
 
-#RUN composer install --no-dev
-RUN composer install
-RUN composer update
-RUN chown -R nobody:nobody /var/www/html/storage
-
 # Setup MUD packages
 RUN mkdir -p  packages
-COPY packages/. ./packages
+COPY mudtech/. ./packages
 
 # Require telescope
 RUN composer require laravel/telescope
@@ -97,6 +92,11 @@ RUN php artisan jetstream:install livewire  --teams
 
 # Install NPM dependencies and build assets
 RUN npm install && npm run build
+
+#RUN composer install --no-dev
+RUN composer install
+RUN composer update
+RUN chown -R nobody:nobody /var/www/html/storage
 
 # Run database migrations
 RUN php artisan migrate
