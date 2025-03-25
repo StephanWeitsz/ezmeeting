@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('logged_date');
             $table->timestamp('revised_date');
             $table->foreignId('meeting_minute_item_id')->constrained('meeting_minute_items')->onDelete('cascade');
-            $table->foreignId('meeting_minute_action_status_id')->constrained('meeting_minute_action_statuses')->onDelete('cascade');            $table->timestamps();
+            $table->timestamps();
         });
     }
 

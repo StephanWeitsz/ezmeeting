@@ -63,5 +63,21 @@ class EzimeetingMeetingStatusSeeder extends Seeder
             'is_active' => true,
         ]);
 
+        MeetingStatus::create([
+            'description' => "Closed",
+            'text' => fake()->text(200),
+            'color' => fake()->hexColor,
+            'order' => fake()->numberBetween(0, 100),
+            'is_active' => true,
+        ]);
+
+        MeetingStatus::create([
+            'description' => "reOpend",
+            'text' => fake()->text(200),
+            'color' => fake()->hexColor,
+            'order' => fake()->numberBetween(0, 100),
+            'is_active' => true,
+        ]);
+
     }
 }

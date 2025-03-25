@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center justify-center py-5 bg-gray-200">
     <div class="container mx-auto px-4">
         
-        @include('ezimeeting::livewire.includes.heading.admin-heading')
+        @include('ezimeeting::livewire.includes.heading.ezi-full-heading')
                
         @include('ezimeeting::livewire.includes.warnings.success')
         @include('ezimeeting::livewire.includes.warnings.error')         

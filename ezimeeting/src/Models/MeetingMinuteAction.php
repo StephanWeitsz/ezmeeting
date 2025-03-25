@@ -18,6 +18,7 @@ class MeetingMinuteAction extends Model
         'description',
         'text',
         'meeting_minute_item_id',
+        'meeting_minute_action_status_id',
     ];
 
     /**

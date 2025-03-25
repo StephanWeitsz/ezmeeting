@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('text')->nullable();
             $table->foreignId('meeting_minute_item_id')->constrained('meeting_minute_items')->onDelete('cascade');
+            $table->foreignId('meeting_minute_action_status_id')->constrained('meeting_minute_action_statuses')->onDelete('cascade');
             $table->timestamps();
         });
     }

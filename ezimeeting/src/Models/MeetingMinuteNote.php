@@ -20,7 +20,7 @@ class MeetingMinuteNote extends Model
         'logged_date',
         'revised_date',
         'meeting_minute_item_id',
-        'meeting_minute_action_status_id',
+        
     ];
 
     // Define a belongsTo relationship with MeetingMinuteActionStatus model

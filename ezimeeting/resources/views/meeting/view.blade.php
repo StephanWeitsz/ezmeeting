@@ -11,10 +11,9 @@
                 </div>
             </div>
             <div class="p-5 bg-gray-400 border border-gray-800">
-                <h2 class="card-header">Minutes</h2>
                 <div class="card-body">
                     <!-- Minutes content goes here -->
-                    testing
+                    @livewire('MeetingMinutesList', ['meetingId' => $meetingId])
                 </div>
             </div>
         </div>

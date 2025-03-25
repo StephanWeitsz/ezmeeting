@@ -1,6 +1,6 @@
 <div class="flex flex-col items-center justify-center py-16 bg-gray-200">
     <div class="container mx-auto px-4">
-        @include('ezimeeting::livewire.includes.heading.admin-heading')
+        @include('ezimeeting::livewire.includes.heading.ezi-full-heading')
 
         <div class="container mx-auto py-8">
     
