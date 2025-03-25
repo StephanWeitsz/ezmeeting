@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-WORKDIR /var/www/html/
+WORKDIR /var/www/html
 
 # Essentials
 RUN echo "UTC" > /etc/timezone
@@ -70,39 +70,36 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 #Setup installer for Laravel and create Portal
 RUN composer global require laravel/installer
-RUN composer create laravel/laravel portal 
+RUN composer create laravel/laravel:11.* portal
 
 # Building process if needed (installer failes) - Run laravel setup seperatley and perform actions from this point on  
 
-# Setup MUD packages
-RUN mkdir -p  packages
-COPY ezimeeting/. ./packages
+RUN chmod -R 777 /var/www/html/portal/storage /var/www/html/portal/bootstrap/cache
 
-# trouble shooting from here check if laravel is installed and package was copied
+WORKDIR /var/www/html/portal
 
-# Require telescope
-#RUN composer require laravel/telescope
+COPY ./docker/.env /var/www/html/portal/.env
+#COPY ./docker/composer.json /var/www/html/portal/composer.json
 
 # Install Telescope
+#RUN composer require laravel/telescope
 #RUN php artisan telescope:install
 
 # Require Jetscreem and liveWire
 #RUN composer require laravel/jetstream
-
-# Install Jetstream with Livewire scafolding
 #RUN php artisan jetstream:install livewire  --teams
+
+RUN composer install
+RUN composer update
 
 # Install NPM dependencies and build assets
 #RUN npm install && npm run build
 
-#RUN composer install --no-dev
-#RUN composer install
-#RUN composer update
-#RUN chown -R nobody:nobody /var/www/html/storage
-
 # Run database migrations
 #RUN php artisan migrate
 #RUN php artisan db:seed --class="Mudtec\\Ezimeeting\\Database\\Seeders\\EzimeetingDatabaseSeeder"
+
+#RUN chown -R nobody:nobody /var/www/html/storage
 
 EXPOSE 80
 CMD ["supervisord", "-c", "/etc/supervisor.d/supervisord.ini"]
