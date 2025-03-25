@@ -78,8 +78,6 @@ RUN chmod -R 777 /var/www/html/portal/storage /var/www/html/portal/bootstrap/cac
 
 WORKDIR /var/www/html/portal
 
-COPY ./docker/.env /var/www/html/portal/.env
-#COPY ./docker/composer.json /var/www/html/portal/composer.json
 
 # Install Telescope
 #RUN composer require laravel/telescope
@@ -94,6 +92,11 @@ RUN composer update
 
 # Install NPM dependencies and build assets
 #RUN npm install && npm run build
+
+COPY ./docker/.env /var/www/html/portal/.env
+COPY ./docker/composer.json /var/www/html/portal/composer.json
+COPY ./docker/welcome.blade.php /var/www/html/portal/resources/views/welcome.blade.php
+COPY ./docker/navigation-menu.blade.php /var/www/html/resources/views/navigation-menu.blade.php
 
 # Run database migrations
 #RUN php artisan migrate
