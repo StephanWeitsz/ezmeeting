@@ -101,7 +101,7 @@ COPY ./docker/navigation-menu.blade.php /var/www/html/portal/resources/views/new
 #RUN php artisan migrate
 #RUN php artisan db:seed --class="Mudtec\\Ezimeeting\\Database\\Seeders\\EzimeetingDatabaseSeeder"
 
-RUN chown -R www-data:www-data /var/www/html/portal/storage
+#RUN chown -R www-data:www-data /var/www/html/portal/storage
 RUN chmod -R 777 /var/www/html/portal/storage
 
 EXPOSE 80

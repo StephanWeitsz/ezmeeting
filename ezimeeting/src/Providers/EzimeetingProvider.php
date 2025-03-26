@@ -50,6 +50,7 @@ class EzimeetingProvider extends ServiceProvider
         //$this->registerConfigs();
         $this->registerHelpers();
         $this->registerListners();
+        $this->registerSeeders();
         $this->registerMigrations();
         $this->registerRoutes();
         $this->registerViews();
@@ -57,11 +58,6 @@ class EzimeetingProvider extends ServiceProvider
         $this->registerPublishables();
         //$this->registerPolicies();
   
-    }
-
-    protected function registerListners() {
-        Event::listen(Login::class, eziMeetingLogin::class);
-        Event::listen(Registered::class, eziMeetingRegister::class);
     }
 
     protected function registerConfigs() {
@@ -88,6 +84,46 @@ class EzimeetingProvider extends ServiceProvider
                 require $file;
             }
         }
+    }
+
+    protected function registerListners() {
+        Event::listen(Login::class, eziMeetingLogin::class);
+        Event::listen(Registered::class, eziMeetingRegister::class);
+    }
+
+    protected function registerSeeders() {
+        $this->loadSeedersFrom(__DIR__.'/../database/seeders');
+    }    
+
+    protected function loadSeedersFrom($path)
+    {
+        $this->callAfterResolving(\Illuminate\Database\Seeder::class, function ($seeder) use ($path) {
+            foreach (glob($path.'/*.php') as $filename) {
+                $class = $this->getClassFromFile($filename);
+                $seeder->call($class);
+            }
+        });
+    }
+
+    protected function getClassFromFile($filename)
+    {
+        $content = file_get_contents($filename);
+        preg_match('/namespace\s+(.+?);/', $content, $namespace);
+        preg_match('/class\s+(\w+)/', $content, $class);
+
+        return $namespace[1].'\\'.$class[1];
+    }
+    
+    public function registerMigrations() {
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+    }
+
+    public function registerRoutes() {
+
+        //$this->app['router']->pushMiddlewareToGroup(\Mudtec\Ezimeeting\Http\Middleware\RedirectToEzimeeting::class);
+        //$this->app['router']->pushMiddlewareToGroup('web', \Mudtec\Ezimeeting\Http\Middleware\CheckCorporationMembership::class);
+        
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
     }
     
     protected function registerViews() {
@@ -137,7 +173,6 @@ class EzimeetingProvider extends ServiceProvider
         Livewire::component('newMeetingMinute', \Mudtec\Ezimeeting\Livewire\Meeting\NewMeetingMinute::class);
 
         //Livewire::component('MeetingMinutes', \Mudtec\Ezimeeting\Livewire\Meeting\MeetingMinutes::class);
-
         
     }
 
@@ -153,17 +188,7 @@ class EzimeetingProvider extends ServiceProvider
         }
     }
 
-    public function registerRoutes() {
-
-        //$this->app['router']->pushMiddlewareToGroup(\Mudtec\Ezimeeting\Http\Middleware\RedirectToEzimeeting::class);
-        //$this->app['router']->pushMiddlewareToGroup('web', \Mudtec\Ezimeeting\Http\Middleware\CheckCorporationMembership::class);
-        
-        $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
-    }
-
-    public function registerMigrations() {
-        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-    }
+    
 
     public function register() {
         
