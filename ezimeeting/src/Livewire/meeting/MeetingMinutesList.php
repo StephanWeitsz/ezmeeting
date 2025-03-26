@@ -12,17 +12,48 @@ use Mudtec\Ezimeeting\Models\Department;
 use Mudtec\Ezimeeting\Models\Meeting;
 use Mudtec\Ezimeeting\Models\MeetingStatus;
 use Mudtec\Ezimeeting\Models\MeetingLocation;
-use Mudtec\Ezimeeting\Models\MeetingInterval;
+use Mudtec\Ezimeeting\Models\MeetingMinute;
 
 class MeetingMinutesList extends Component
 {
+    public $minutesId;
+
     public $meetingId;
+    public $meetingMinutes;
 
     public $page_heading = 'Meeting List';
 
-    public function mount($meetingId) 
+    public function mount($meetingId, $minutesId) 
     {
-        $this->meetingId = $meetingId;
+        if(isset($minutesId)) {
+            $this->minutesId = $minutesId;
+
+            $this->meetingMinutes = MeetingMinute::where('meeting_id', $meetingId)
+                                                    ->where('id', '=', $minutesId)
+                                                    ->orderBy('created_at', 'desc')
+                                                    ->get();
+        }
+        else {
+            if(isset($meetingId)) {
+                $this->meetingId = $meetingId;
+                $this->meetingMinutes = MeetingMinute::where('meeting_id', $meetingId)
+                                                        ->orderBy('created_at', 'desc')
+                                                        ->take(3)
+                                                        ->get();
+            }
+            else {
+
+            }
+        }
+        
+    }
+
+    public function newMeatingMinutes($meetingId) {
+        return redirect()->route('newMeetingMinutes', ['meeting' => $meetingId]);
+    }
+
+    public function viewMeatingMinutes($meetingId,$minuteId) {
+        return redirect()->route('viewMeetingMinutes', ['meeting' => $meetingId, 'minute' => $minuteId]);
     }
 
     public function render()

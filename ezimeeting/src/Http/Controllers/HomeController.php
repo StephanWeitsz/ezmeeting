@@ -24,6 +24,7 @@ class HomeController extends Controller
     {
         Log::info("eziMeeting Landing Page");
 
+        /*
         if(auth()->check()) {
             $user = User::find(Auth::id());
             if ($user && !$user->corporations()->exists()) {
@@ -31,6 +32,8 @@ class HomeController extends Controller
                 return view('ezimeeting::admin.corporations.corporationRegister');
             }
         }
+        */
+        
 	    Log::info("Navigate to eziMeeting Home");
         $meetings = [];
         if (auth()->check()) {

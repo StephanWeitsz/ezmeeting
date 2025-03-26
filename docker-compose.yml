@@ -1,5 +1,17 @@
 version: '3'
 services:
+  Portal:
+    build: .
+    container_name: 'mud-portal'
+    image: 'laravel-alpine:latest'
+    volumes:
+      - './ezimeeting:/var/www/html/portal/packages/mudtec/ezimeeting'
+    ports:
+      - "9010:80"
+    depends_on:
+      - db 
+    networks:
+      - dev_env_mud 
   db:
     container_name: 'mud-db'
     image: postgres
@@ -10,18 +22,6 @@ services:
       - 5412:5432
     networks:
       - dev_env_mud
-  Portal:
-    build: .
-    container_name: 'mud-portal'
-    image: 'laravel-alpine:latest'
-    volumes:
-      - './ezimeeting:/var/www/html/packages/mudtec/ezimeeting'
-    ports:
-      - "9010:80"
-    depends_on:
-      - db 
-    networks:
-      - dev_env_mud 
   admin:
     container_name: 'mud-admin'
     image: dpage/pgadmin4

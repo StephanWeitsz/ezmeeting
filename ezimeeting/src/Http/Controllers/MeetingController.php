@@ -43,6 +43,14 @@ class MeetingController extends Controller
         return view('ezimeeting::meeting.edit', compact('meetingId', 'corpId'));
     }
 
+    public function newMinutes($meetingId) {
+        return view('ezimeeting::meeting.minutes', compact('meetingId'));
+    }
+
+    public function viewMinutes($meetingId, $minutesId) {
+        return view('ezimeeting::meeting.minutes', compact('meetingId', 'minutesId'));
+    }
+
     public function list() {
         return view('ezimeeting::meeting.list');
     }

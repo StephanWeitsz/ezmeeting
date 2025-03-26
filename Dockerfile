@@ -72,12 +72,11 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 RUN composer global require laravel/installer
 RUN composer create laravel/laravel:11.* portal
 
-# Building process if needed (installer failes) - Run laravel setup seperatley and perform actions from this point on  
-
 RUN chmod -R 777 /var/www/html/portal/storage /var/www/html/portal/bootstrap/cache
 
 WORKDIR /var/www/html/portal
 
+# Building process if needed (installer failes) - Run laravel setup seperatley and perform actions from this point on  
 
 # Install Telescope
 #RUN composer require laravel/telescope
@@ -87,16 +86,16 @@ WORKDIR /var/www/html/portal
 #RUN composer require laravel/jetstream
 #RUN php artisan jetstream:install livewire  --teams
 
-RUN composer install
-RUN composer update
+#RUN composer install
+#RUN composer update
 
 # Install NPM dependencies and build assets
 #RUN npm install && npm run build
 
 COPY ./docker/.env /var/www/html/portal/.env
 COPY ./docker/composer.json /var/www/html/portal/composer.json
-COPY ./docker/welcome.blade.php /var/www/html/portal/resources/views/welcome.blade.php
-COPY ./docker/navigation-menu.blade.php /var/www/html/resources/views/navigation-menu.blade.php
+COPY ./docker/welcome.blade.php /var/www/html/portal/resources/views/new-welcome.blade.php
+COPY ./docker/navigation-menu.blade.php /var/www/html/portal/resources/views/new-navigation-menu.blade.php
 
 # Run database migrations
 #RUN php artisan migrate

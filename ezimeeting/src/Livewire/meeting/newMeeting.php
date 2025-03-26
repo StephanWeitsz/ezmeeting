@@ -94,7 +94,7 @@ class NewMeeting extends Component
             return redirect()->route('newMeetingDelegates', ['meetingId' => $meetingNumber, 'corpId'=>$this->corpId]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            session()->flash('error', 'Error: Problem creating meeting');            
+            session()->flash('error', 'Error: Problem creating meeting');
         }
     }
 
