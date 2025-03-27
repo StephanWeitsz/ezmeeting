@@ -92,10 +92,10 @@ WORKDIR /var/www/html/portal
 # Install NPM dependencies and build assets
 #RUN npm install && npm run build
 
-COPY ./docker/.env /var/www/html/portal/.env
-COPY ./docker/composer.json /var/www/html/portal/composer.json
-COPY ./docker/welcome.blade.php /var/www/html/portal/resources/views/new-welcome.blade.php
-COPY ./docker/navigation-menu.blade.php /var/www/html/portal/resources/views/new-navigation-menu.blade.php
+#COPY ./docker/.env /var/www/html/portal/.env
+#COPY ./docker/composer.json /var/www/html/portal/composer.json
+#COPY ./docker/welcome.blade.php /var/www/html/portal/resources/views/new-welcome.blade.php
+#COPY ./docker/navigation-menu.blade.php /var/www/html/portal/resources/views/new-navigation-menu.blade.php
 
 # Run database migrations
 #RUN php artisan migrate
