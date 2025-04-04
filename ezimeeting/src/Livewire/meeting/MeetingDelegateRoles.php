@@ -42,6 +42,7 @@ class MeetingDelegateRoles extends Component
         $this->delegates = MeetingDelegate::where('meeting_id', $this->meetingId)
             ->orderBy('delegate_name')
             ->get();
+            
         foreach ($this->delegates as $delegate) {
             $this->assignedRoles[$delegate->id] = $delegate->delegate_role_id;
         }

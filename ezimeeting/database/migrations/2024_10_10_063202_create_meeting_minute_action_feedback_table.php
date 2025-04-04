@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('action_feedback', function (Blueprint $table) {
+        Schema::create('meeting_minute_action_feedback', function (Blueprint $table) {
             $table->id();
             $table->foreignId('meeting_minute_action_id')->constrained('meeting_minute_actions')->onDelete('cascade');
             $table->string('text');
+            $table->timestamp('date_logged')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('action_feedback');
+        Schema::dropIfExists('meeting_minute_action_feedback');
     }
 };

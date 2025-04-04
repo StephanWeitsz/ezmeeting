@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('description');
             $table->string('text')->nullable();
-            $table->foreignId('meeting_minute_item_id')->constrained('meeting_minute_items')->onDelete('cascade');
+            $table->timestamp('date_logged');
+            $table->timestamp('date_due')->nullable();
+            $table->timestamp('date_due_revised')->nullable(); 
+            $table->timestamp('date_closed')->nullable();
+            $table->foreignId('meeting_minute_note_id')->constrained('meeting_minute_notes')->onDelete('cascade');
             $table->foreignId('meeting_minute_action_status_id')->constrained('meeting_minute_action_statuses')->onDelete('cascade');
             $table->timestamps();
         });

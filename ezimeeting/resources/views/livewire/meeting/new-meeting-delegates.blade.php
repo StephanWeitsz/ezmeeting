@@ -107,7 +107,7 @@
 
     <div class="mt-4">
         <button 
-            onclick="window.location.href='{{ route('dashboard') }}'" 
+            onclick="window.location.href='{{ route('home') }}'" 
             class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
         >
             Submit

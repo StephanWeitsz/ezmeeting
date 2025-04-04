@@ -8,9 +8,9 @@
                 <div class="card-body">
                     <!-- Meeting Detail content goes here -->
                     @if($minutesId)
-                        @livewire('newMeetingMinute', ['meetingId' => $meetingId, 'minutesId' => $minutesId])
+                        @livewire('MeetingMinuteDetail', ['meetingId' => $meetingId, 'minutesId' => $minutesId])
                     @else
-                        @livewire('newMeetingMinute', ['meetingId' => $meetingId,, 'minutesId' => 0])
+                        @livewire('MeetingMinuteDetail', ['meetingId' => $meetingId, 'minutesId' => 0])
                     @endif
                 </div>
             </div>
@@ -19,9 +19,12 @@
         <!-- Right side (Delegates spanning full height) -->
         <div class="flex-1 w-full sm:w-2/5">
             <div class="p-5 bg-gray-400 border border-gray-800 h-full">
-                <div class="card-body"> 
-                    <!-- Delegates content goes here -->
-                    <h3>Attendees</h3>
+                <div class="card-body">
+                    @if($minutesId) 
+                        @livewire('MeetingMinuteAttendees', ['meetingId' => $meetingId, 'minutesId' => $minutesId])
+                    @else
+                        @livewire('MeetingMinuteAttendees', ['meetingId' => $meetingId, 'minutesId' => 0])
+                    @endif
                 </div>
             </div>
         </div>

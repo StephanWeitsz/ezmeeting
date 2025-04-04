@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('meeting_id')->constrained('meetings')->onDelete('cascade');
             $table->timestamp('date');
             $table->string('transcript')->nullable();
+            $table->string('state')->nullable();
             $table->timestamps();
         });
     }

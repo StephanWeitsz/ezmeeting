@@ -21,6 +21,13 @@ class EzimeetingMeetingLocationSeeder extends Seeder
       $corporations = DB::table('corporations')->select('id')->get();
       $corpCnt = count($corporations);
 
+      MeetingLocation::create([
+        'description' => "ONLINE",
+        'text' => "Online",
+        'corporation_id' => 1,
+        'is_active' => true,
+      ]);
+
       for($i=0;$i<60;$i++) {
         MeetingLocation::create([
           'description' => fake()->word . " " . fake()->numberBetween(1, 50),

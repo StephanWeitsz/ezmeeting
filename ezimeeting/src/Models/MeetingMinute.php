@@ -21,6 +21,7 @@ class MeetingMinute extends Model
         'meeting_id',
         'date',
         'transcript',
+        'state',
     ];
   
     // Define a hasMany relationship with Meeting model

@@ -18,7 +18,7 @@
                 </div>
             @endif
             
-            @if(!hasCorp() and !verify_user('SuperUser|Admin'))
+            @if(!hasCorp()) {{--and !verify_user('SuperUser|Admin'))--}}
                 <div class="bg-red-100 border border-red-400 text-center mt-5 p-5 rounded">
                     <p class="text-gray-900"><strong>You don't have any corporations yet. Please add one to take part in meetings.</strong></p>
                     <a class="px-3 py-2 text-lg text-gray-900 bg-red-400 rounded mt-5 inline-block" href="{{ route('corporationRegister') }}"><strong>LINK USER TO COTPOTATION</strong></a>

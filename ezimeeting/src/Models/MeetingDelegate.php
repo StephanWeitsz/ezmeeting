@@ -63,4 +63,10 @@ class MeetingDelegate extends Model
     {
         return $query->where('is_active', true);
     }
+
+    public function actions()
+    {
+        return $this->belongsToMany(MeetingMinuteAction::class, 'action_responsibilities')
+            ->withTimestamps();
+    }
 }

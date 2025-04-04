@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('text')->nullable();
             $table->timestamp('date_logged');
-            $table->timestamp('date_closed');
+            $table->timestamp('date_closed')->nullable();
             $table->timestamps();
         });
     }

@@ -17,16 +17,32 @@ class MeetingMinuteAction extends Model
     protected $fillable = [
         'description',
         'text',
-        'meeting_minute_item_id',
+        'date_logged',
+        'date_due',
+        'date_due_revised',
+        'date_closed',
+        'meeting_minute_note_id',
         'meeting_minute_action_status_id',
     ];
 
-    /**
-     * Get the meeting minute that this action belongs to.
-     * This method defines a hasMany relationship with MeetingMinute model.
-     */
-    public function meetingMinute()
+    public function meetingMinuteNote()
     {
-        return $this->hasMany(MeetingMinute::class);
+        return $this->belongsTo(MeetingMinuteNote::class);
+    }
+
+    public function meetingMinuteActionFeedbacks()
+    {
+        return $this->hasMany(MeetingMinuteActionfeedback::class);
+    }
+
+    public function meetingMinuteActionStatus()
+    {
+        return $this->belongsTo(MeetingMinuteActionStatus::class);
+    }
+
+    public function delegates()
+    {
+        return $this->belongsToMany(MeetingDelegate::class, 'action_responsibilities')
+            ->withTimestamps();
     }
 }

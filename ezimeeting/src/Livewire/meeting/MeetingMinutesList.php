@@ -25,7 +25,8 @@ class MeetingMinutesList extends Component
 
     public function mount($meetingId, $minutesId) 
     {
-        if(isset($minutesId)) {
+        Log::info('mount meeting minute');
+        if(isset($minutesId) and !empty($minutesId)) {
             $this->minutesId = $minutesId;
 
             $this->meetingMinutes = MeetingMinute::where('meeting_id', $meetingId)
@@ -45,15 +46,19 @@ class MeetingMinutesList extends Component
 
             }
         }
-        
     }
 
-    public function newMeatingMinutes($meetingId) {
-        return redirect()->route('newMeetingMinutes', ['meeting' => $meetingId]);
+    public function MeetingMinuteDetails($meetingId) {
+        return redirect()->route('MeetingMinuteDetails', ['meeting' => $meetingId]);
     }
 
-    public function viewMeatingMinutes($meetingId,$minuteId) {
-        return redirect()->route('viewMeetingMinutes', ['meeting' => $meetingId, 'minute' => $minuteId]);
+    public function viewMeetingMinutes($meetingId,$minutesId) {
+        return redirect()->route('viewMeetingMinutes', ['meeting' => $meetingId, 'minute' => $minutesId]);
+    }
+
+    public function listMeetingMinutes($meetingId) {
+        Log::info('list meeting minute');
+            
     }
 
     public function render()

@@ -23,18 +23,6 @@ class HomeController extends Controller
     public function index()
     {
         Log::info("eziMeeting Landing Page");
-
-        /*
-        if(auth()->check()) {
-            $user = User::find(Auth::id());
-            if ($user && !$user->corporations()->exists()) {
-                Log::info("Redirect to Corporate Registration");
-                return view('ezimeeting::admin.corporations.corporationRegister');
-            }
-        }
-        */
-        
-	    Log::info("Navigate to eziMeeting Home");
         $meetings = [];
         if (auth()->check()) {
             $user = User::find(Auth::id());

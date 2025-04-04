@@ -40,15 +40,6 @@ class MeetingAttendee extends Model
     {
         return $this->belongsTo(MeetingAttendeeStatus::class, 'meeting_attendee_status_id');
     }
-
-    /**
-     * Get the meeting attendees with this status.
-     * This method defines a hasMany relationship with Meeting model.
-     */
-    public function meetingAction()
-    {
-        return $this->hasMany(Meeting::class);
-    }
     
     // Define a scope to filter active attendees
     public function scopeActive($query)
@@ -56,12 +47,12 @@ class MeetingAttendee extends Model
         return $query->where('is_active', true);
     }
 
-/**
- * Scope a query to order by the 'order' column.
- *
- * @param  \Illuminate\Database\Eloquent\Builder  $query
- * @return \Illuminate\Database\Eloquent\Builder
- */
+    /**
+     * Scope a query to order by the 'order' column.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeOrdered($query)
     {
         return $query->orderBy('order');
