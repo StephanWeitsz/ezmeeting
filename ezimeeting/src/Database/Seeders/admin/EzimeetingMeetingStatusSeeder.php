@@ -24,7 +24,7 @@ class EzimeetingMeetingStatusSeeder extends Seeder
         ]);
 
         MeetingStatus::create([
-            'description' => "Scheduled",
+            'description' => "Active",
             'text' => fake()->text(200),
             'color' => fake()->hexColor,
             'order' => fake()->numberBetween(0, 100),

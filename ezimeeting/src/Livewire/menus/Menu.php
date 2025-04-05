@@ -13,7 +13,7 @@ class Menu extends Component
             'auth' => 'SuperUser|Admin|Organizer|Attendee',
             'submenus' => [
                 ['label' => 'Create Meeting', 'route' => 'newMeeting', 'auth' => 'SuperUser|Admin|Organizer'],
-                ['label' => 'My Meetings', 'route' => 'underDevelopment','auth' => 'SuperUser|Admin|Organizer'],
+                ['label' => 'My Meetings', 'route' => 'myMeetingList','auth' => 'SuperUser|Admin|Organizer'],
                 ['label' => 'All Meetings', 'route' => 'meetingList','auth' => 'SuperUser|Admin|CorpAdmin|Organizer|Attendee'],
                 ['label' => 'Meeting Schedule', 'route' => 'underDevelopment','auth' => true],
                 ['label' => 'Meeting Report', 'route' => 'underDevelopment','auth' => true],
@@ -42,19 +42,19 @@ class Menu extends Component
         ],
         [
             'label' => 'About Us',
-            'route' => 'underDevelopment',
+            'route' => 'about',
             'auth' => true,
             'submenus' => [],
         ],
         [
             'label' => 'Contact Us',
-            'route' => 'underDevelopment',
+            'route' => 'contact',
             'auth' => true,
             'submenus' => [],
         ],
         [
             'label' => 'Terms',
-            'route' => 'underDevelopment',
+            'route' => 'terms',
             'auth' => true,
             'submenus' => [],
         ],

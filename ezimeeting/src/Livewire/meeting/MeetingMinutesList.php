@@ -19,12 +19,16 @@ class MeetingMinutesList extends Component
     public $minutesId;
 
     public $meetingId;
+    public $meetingStatus;
     public $meetingMinutes;
 
     public $page_heading = 'Meeting List';
 
     public function mount($meetingId, $minutesId) 
     {
+        $status = MeetingStatus::findOrFail(Meeting::findOrFail($meetingId)->meeting_status_id);
+        $this->meetingStatus = $status->description;
+        
         Log::info('mount meeting minute');
         if(isset($minutesId) and !empty($minutesId)) {
             $this->minutesId = $minutesId;

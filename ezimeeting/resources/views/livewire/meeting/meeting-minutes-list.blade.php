@@ -3,7 +3,9 @@
         @include('ezimeeting::livewire.includes.heading.ezi-small-heading')
         <div class="container mx-auto py-3">
             <div class="flex flex-wrap justify-between">
-                <button wire:click='MeetingMinuteDetails({{ $meetingId }})' class="bg-blue-500 text-white py-5 px-10 rounded mb-2">New</button>
+                @if( $meetingStatus == "New" || $meetingStatus == "In-Progress" || $meetingStatus == "Active") 
+                    <button wire:click='MeetingMinuteDetails({{ $meetingId }})' class="bg-blue-500 text-white py-5 px-10 rounded mb-2">New</button>
+                @endif
                 @foreach ($meetingMinutes as $mm)
                     @php
                         $date = \Carbon\Carbon::parse($mm->date)->format('Y-m-d');

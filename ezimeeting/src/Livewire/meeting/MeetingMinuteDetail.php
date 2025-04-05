@@ -17,6 +17,8 @@ use Mudtec\Ezimeeting\Models\MeetingMinuteActionStatus;
 use Mudtec\Ezimeeting\Models\MeetingMinuteActionFeedback;
 
 use Mudtec\Ezimeeting\Models\ActionResponsibilitie;
+use Mudtec\Ezimeeting\Models\MeetingStatus;
+use Mudtec\Ezimeeting\Models\Meeting;
 
 class MeetingMinuteDetail extends Component
 {
@@ -92,7 +94,10 @@ class MeetingMinuteDetail extends Component
             'meetingMinuteDate' => ['required', 'date'],
             'meetingMinuteTranscript' => ['nullable', 'file', 'mimes:txt,pdf,doc,docx', 'max:10240'], // max 10MB
         ]);
-            
+
+        $meetingStatusId = MeetingStatus::where('description','In Progress')->first();
+        Meeting::where('id', $this->meetingId)->update(['meeting_status_id' => $meetingStatusId->id]); 
+                 
         $Data['date'] = $this->meetingMinuteDate;
         $Data['meeting_id'] = $this->meetingId;
         $Data['state'] = "started";
@@ -593,6 +598,8 @@ class MeetingMinuteDetail extends Component
             'meetingMinuteTranscript' => ['nullable', 'file', 'mimes:txt,pdf,doc,docx', 'max:10240'], // max 10MB
         ]);
     
+        $meetingStatusId = MeetingStatus::where('description','Active')->first();
+        Meeting::where('id', $this->meetingId)->update(['meeting_status_id' => $meetingStatusId->id]); 
 
         $Data['date'] = $this->meetingMinuteDate;
         $Data['meeting_id'] = $this->meetingId;
@@ -631,10 +638,9 @@ class MeetingMinuteDetail extends Component
     public function back() {
         return redirect()->route('meetingView', ['meeting' => $this->meetingId]);
     }
-
+    
     ////////////////////////////////////////////////////
-    public function render()
-    {
+    public function render() {
         
         if (empty($this->minutesId)) {
             $this->meetingMinute = "";

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+
+use  Mudtec\Ezimeeting\Mail\ContactFormSubmitted;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -43,5 +46,39 @@ class HomeController extends Controller
         }
         return view('ezimeeting::home', compact('meetings'));
     }
+
+    public function about() {
+        return view('ezimeeting::about');
+    }
+
+    public function contact() {
+        return view('ezimeeting::contact');
+    }
+ 
+    public function contactSubmit() {
+
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'message' => 'required|string',
+        ]);
+    
+        Mail::to('your-email@example.com')->send(new ContactFormSubmitted($validated));
+    
+        return back()->with('success', 'Thank you for your message! We will get back to you soon.');
+    }
+
+    public function terms() {
+        return view('ezimeeting::terms');
+    }
+
+    public function privacy() {
+        return view('ezimeeting::privacy');
+    }
+
+    public function faq() {
+        return view('ezimeeting::faq');
+    }
+
 }
 

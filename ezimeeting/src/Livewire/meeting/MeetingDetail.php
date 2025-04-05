@@ -131,6 +131,17 @@ class MeetingDetail extends Component
         return redirect()->route('meetingList');
     }
 
+    public function setMeetingStatus($status) {
+        
+        $meetingStatus = MeetingStatus::where('description',$status)->first();
+        if($meetingStatus == null) {
+            session()->flash('error', 'Meeting status not found.');
+            return;
+        }
+        $this->meeting->update(['meeting_status_id' => $meetingStatus->id]);
+        $this->meeting_status_id = $meetingStatus->id;
+        session()->flash('success', 'Meeting status updated to ' . $status);
+    }
 
     public function render()
     {

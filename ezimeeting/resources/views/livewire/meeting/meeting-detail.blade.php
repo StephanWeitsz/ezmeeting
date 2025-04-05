@@ -55,15 +55,6 @@
                             <p id="meeting_interval_id" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">{{ get_meeting_interval($meeting_interval_id) }}</p>
                         </div>
                         <div>
-                            <label for="meeting_status_id" class="block text-sm font-medium text-gray-700">Meeting Status</label>
-                            <div class="mt-1 flex items-center">
-                                <p id="meeting_status_id" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">
-                                    <span class="inline-block w-4 h-4 rounded-full mr-2" style="background-color: {{ get_meeting_color($meeting_status_id) }};"></span>
-                                    {{ get_meeting_status($meeting_status_id) }}
-                                </p>
-                            </div>
-                        </div>
-                        <div>
                             <label for="meeting_location_id" class="block text-sm font-medium text-gray-700">Meeting Location</label>
                             <p id="meeting_location_id" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">{{ get_meeting_location($meeting_location_id) }}</p>
                         </div>
@@ -76,11 +67,35 @@
                             <p id="created_by_user_id" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">{{ get_user_name($meeting_created_by_user_id) }}</p>
                         </div>
 
+                        <div>
+                            <label for="meeting_status_id" class="block text-sm font-medium text-gray-700">Meeting Status</label>
+                            <div class="mt-1 flex items-center">
+                                <p id="meeting_status_id" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">
+                                    <span class="inline-block w-4 h-4 rounded-full mr-2" style="background-color: {{ get_meeting_color($meeting_status_id) }};"></span>
+                                    {{ get_meeting_status($meeting_status_id) }}
+                                </p>
+                            </div>
+                        </div>
+
                         <div class="mt-4">
                             <div class="flex justify-between">
-                                <button wire:click="exitEditMeeting" class="px-4 py-2 bg-gray-400 text-white rounded-md">
-                                    ← Back
-                                </button>
+                                @php
+                                    $meeting_status_description = get_meeting_status($meeting_status_id);
+                                @endphp
+                                @if($meeting_status_description == "New" or
+                                    $meeting_status_description == "Active" or 
+                                    $meeting_status_description == "In-Progress" or
+                                    $meeting_status_description == "reOpend")
+                                    <button wire:click="setMeetingStatus('OnHold')" class="px-4 py-2 bg-gray-400 text-white rounded-md">
+                                        On Hold
+                                    </button>
+                                    <button wire:click="setMeetingStatus('Canceled')" class="px-4 py-2 bg-gray-400 text-white rounded-md">
+                                        Cancel
+                                    </button>
+                                    <button wire:click="setMeetingStatus('Closed')" class="px-4 py-2 bg-gray-400 text-white rounded-md">
+                                        Close
+                                    </button>
+                                @endif
                             </div>
                         </div>
 
@@ -137,17 +152,6 @@
                                     @error('meeting_interval_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="mb-4">
-                                    <label for="meeting_status_id" class="block text-sm font-medium text-gray-700">Meeting Status</label>
-                                    <select id="meeting_status_id" wire:model="meeting_status_id" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">
-                                        
-                                        @foreach($meeting_statuses as $status)
-                                            <option value="{{ $status->id }}" {{ $status->id == $meeting_status_id ? 'selected' : '' }}>{{ $status->description }}</option>
-                                        @endforeach
-                                        
-                                    </select>
-                                    @error('meeting_status_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                                </div>
-                                <div class="mb-4">
                                     <label for="meeting_location_id" class="block text-sm font-medium text-gray-700">Meeting Location</label>
                                     <select id="meeting_location_id" wire:model="meeting_location_id" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">
                                         
@@ -174,11 +178,49 @@
                                     </select>
                                     @error('meeting_created_by_user_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                 </div>
+
+                                <div>
+                                    <label for="meeting_status_id" class="block text-sm font-medium text-gray-700">Meeting Status</label>
+                                    <div class="mt-1 flex items-center">
+                                        <p id="meeting_status_id" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">
+                                            <span class="inline-block w-4 h-4 rounded-full mr-2" style="background-color: {{ get_meeting_color($meeting_status_id) }};"></span>
+                                            {{ get_meeting_status($meeting_status_id) }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {{--
+                                <div class="mb-4">
+                                    <label for="meeting_status_id" class="block text-sm font-medium text-gray-700">Meeting Status</label>
+                                    <select id="meeting_status_id" wire:model="meeting_status_id" class="block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring-blue-300">
+                                        
+                                        @foreach($meeting_statuses as $status)
+                                            <option value="{{ $status->id }}" {{ $status->id == $meeting_status_id ? 'selected' : '' }}>{{ $status->description }}</option>
+                                        @endforeach
+                                        
+                                    </select>
+                                    @error('meeting_status_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                                </div>
+                                --}}
+                                
                                 <div class="mt-4">
                                     <div class="flex justify-between">
                                         <button wire:click="exitEditMeeting" class="px-4 py-2 bg-gray-400 text-white rounded-md">
                                             ← Back
                                         </button>
+
+                                        @php
+                                            $meeting_status_description = get_meeting_status($meeting_status_id);
+                                        @endphp
+                                        @if($meeting_status_description == "Closed" or $meeting_status_description == "Canceled" or $meeting_status_description == "OnHold")
+                                            <button wire:click="setMeetingStatus('reOpend')" class="px-4 py-2 bg-gray-400 text-white rounded-md">
+                                                Re Open
+                                            </button>
+                                            <button wire:click="setMeetingStatus('Completed')" class="px-4 py-2 bg-gray-400 text-white rounded-md">
+                                                Complete
+                                            </button>
+                                        @endif
+
                                         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md">
                                             Update Meeting
                                         </button>

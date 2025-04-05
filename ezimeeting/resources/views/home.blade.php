@@ -25,25 +25,15 @@
                 </div>
             @endif
             
-            <main class="container mx-auto px-5 flex flex-grow">
+            <main class="container mx-auto px-5 flex flex-growr ">
                 <div class="mb-5">
                     <h2 class="my-5 text-3xl text-yellow-500 font-bold">My Meetings</h2>
                     <div class="w-full">
-                        <div class="grid grid-cols-6 gap-10 w-full">
-
+                        <div class="grid grid-cols-1 gap-10 w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                             @if(isset($meetings))
                                 @foreach($meetings as $meeting)
-                                    
-                                    <div class="md:col-span-1 lg:col-span-2 col-span-4">
-                                        {{--
-                                        <a href="http://127.0.0.1:8000/blog/laravel-34">
-                                            <div>
-                                                <img class="w-full rounded-xl"
-                                                    src="http://127.0.0.1:8000/storage/3i5uKG05UnvhbORZ3ieDkvtAOL8ss5-metaZXAxNSAoMjIpLnBuZw==-.png">
-                                            </div>
-                                        </a>
-                                        --}}
-                                        <div class="mt-3 border border-black rounded-lg p-4 shadow-lg">
+                                    <div class="w-full">
+                                        <div class="m-3 border border-black rounded-lg p-4 shadow-lg">
                                             <div class="flex items-center mb-2">
                                                 <a href="#" class="text-white rounded-xl px-3 py-1 text-sm mr-3" style="background-color: {{ get_meeting_color($meeting->meeting_status_id) ?? sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }};">
                                                     {{ get_meeting_status($meeting->meeting_status_id) }}
@@ -77,9 +67,6 @@
                                                 @if(verify_user('Organizer|CorpAdmin'))    
                                                     <a href="{{ route('meetingEdit', $meeting->id) }}" class="text-yellow-500 font-semibold">Edit</a>
                                                 @endif
-                                                @if(verify_user('Organizer|CorpAdmin'))
-                                                    <a href="{{-- route('meeting.close', $meeting->id) --}}#" class="text-red-500 font-semibold">Close</a>
-                                                @endif
                                             </div>    
                                         </div>
                                     </div>
@@ -87,8 +74,8 @@
                             @endif 
                         </div>
                     </div>
-                    <div class="w-full text-center">
-                        <a class="mt-10 block text-center text-lg text-yellow-500 font-semibold"
+                    <div class="grid w-full text-center flex justify-center">
+                        <a class="m-5 block text-center text-lg text-yellow-500 font-semibold"
                             href="{{ route('meetingList') }}">More...
                         </a>
                     </div>

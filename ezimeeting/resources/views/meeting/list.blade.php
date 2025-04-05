@@ -1,7 +1,9 @@
 <x-ezim::ezimeeting>
     @section('content')
-      
-        @livewire('MeetingList')
-    
+        @if(isset($ownerId))  
+            @livewire('myMeetings')
+        @else
+            @livewire('MeetingList')
+        @endif    
     @endsection
 </x-ezim::ezimeeting>

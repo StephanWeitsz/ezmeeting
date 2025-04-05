@@ -57,4 +57,9 @@ class MeetingController extends Controller
     public function list() {
         return view('ezimeeting::meeting.list');
     }
+
+    public function ownerList() {
+        $ownerId = auth()->user()->id;
+        return view('ezimeeting::meeting.list', compact('ownerId'));
+    }
 }
