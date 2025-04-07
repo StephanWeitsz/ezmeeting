@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('description')->unique();;
             $table->string('text')->nullable();
             $table->integer('order')->default(0);
+            $table->string('formula')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

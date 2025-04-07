@@ -49,6 +49,10 @@ class MeetingController extends Controller
         return view('ezimeeting::meeting.minutes', compact('meetingId', 'minutesId'));
     }
 
+    public function MinutesList($meetingId) {
+        return view('ezimeeting::meeting.minutes-list', compact('meetingId'));
+    }
+
     public function viewMinutes($meetingId, $minutesId) {
         
         return view('ezimeeting::meeting.minutes', compact('meetingId', 'minutesId'));
@@ -62,4 +66,6 @@ class MeetingController extends Controller
         $ownerId = auth()->user()->id;
         return view('ezimeeting::meeting.list', compact('ownerId'));
     }
+
+
 }

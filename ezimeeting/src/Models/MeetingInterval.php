@@ -14,6 +14,7 @@ class MeetingInterval extends Model
         'description',
         'text',
         'order',
+        'formula',
         'is_active',
     ];
 

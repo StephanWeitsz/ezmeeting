@@ -19,6 +19,7 @@ class EzimeetingMeetingIntervalSeeder extends Seeder
             'description' => "Once Off",
             'text' => fake()->text(200),
             'order'=> fake()->numberBetween(0, 100),
+            'formula' => "",
             'is_active' => true, 
         ]);
 
@@ -26,6 +27,7 @@ class EzimeetingMeetingIntervalSeeder extends Seeder
             'description' => "Daily",
             'text' => fake()->text(200),
             'order'=> fake()->numberBetween(0, 100),
+            'formula' => "+1d",
             'is_active' => true, 
         ]);
 
@@ -33,6 +35,7 @@ class EzimeetingMeetingIntervalSeeder extends Seeder
             'description' => "Weekly",
             'text' => fake()->text(200),
             'order'=> fake()->numberBetween(0, 100),
+            'formula' => "+1w",
             'is_active' => true,
         ]);
 
@@ -40,13 +43,15 @@ class EzimeetingMeetingIntervalSeeder extends Seeder
             'description' => "Bi-Weekly",
             'text' => fake()->text(200),
             'order'=> fake()->numberBetween(0, 100),
+            'formula' => "+2w",
             'is_active' => true,
         ]);
         
         MeetingInterval::create([
             'description' => "Monthly",
             'text' => fake()->text(200),
-            'order'=> fake()->numberBetween(0, 100),    
+            'order'=> fake()->numberBetween(0, 100),
+            'formula' => "+1m",
             'is_active' => true,
         ]);
 
@@ -54,6 +59,7 @@ class EzimeetingMeetingIntervalSeeder extends Seeder
             'description' => "Quarterly",
             'text' => fake()->text(200),
             'order'=> fake()->numberBetween(0, 100),
+            'formula' => "+3m",
             'is_active' => true,
         ]);
 
@@ -61,6 +67,7 @@ class EzimeetingMeetingIntervalSeeder extends Seeder
             'description' => "Annually",
             'text' => fake()->text(200),
             'order'=> fake()->numberBetween(0, 100),
+            'formula' => "+1y",
             'is_active' => true,
         ]);
 
@@ -68,6 +75,7 @@ class EzimeetingMeetingIntervalSeeder extends Seeder
             'description' => "Custom",
             'text' => fake()->text(200),
             'order'=> fake()->numberBetween(0, 100),
+            'formula' => "+14d",
             'is_active' => true,
         ]);
                 

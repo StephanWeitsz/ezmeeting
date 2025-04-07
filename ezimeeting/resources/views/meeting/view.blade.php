@@ -13,7 +13,7 @@
             <div class="p-5 bg-gray-400 border border-gray-800">
                 <div class="card-body">
                     <!-- Minutes content goes here -->
-                    @livewire('MeetingMinutesList', ['meetingId' => $meetingId, 'minutesId' => $minutesId])
+                    @livewire('MeetingMinutesView', ['meetingId' => $meetingId, 'minutesId' => $minutesId])
                 </div>
             </div>
         </div>

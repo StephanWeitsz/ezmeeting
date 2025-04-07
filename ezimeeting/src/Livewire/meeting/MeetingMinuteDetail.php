@@ -8,6 +8,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 
+use Mudtec\Ezimeeting\Models\MeetingInterval;
 use Mudtec\Ezimeeting\Models\MeetingMinute;
 use Mudtec\Ezimeeting\Models\MeetingDelegate;
 use Mudtec\Ezimeeting\Models\MeetingMinuteItem;
@@ -597,9 +598,39 @@ class MeetingMinuteDetail extends Component
             'meetingMinuteDate' => ['required', 'date'],
             'meetingMinuteTranscript' => ['nullable', 'file', 'mimes:txt,pdf,doc,docx', 'max:10240'], // max 10MB
         ]);
+
+        $meeting_interval_id = Meeting::where('id', $this->meetingId)->first()->meeting_interval_id;
+        $meeting_interval = MeetingInterval::find($meeting_interval_id);
+        $interval_formula = $meeting_interval->formula;
+        if (strpos($interval_formula, '+') !== false) {
+            preg_match('/(\d+)([a-z]+)/', $interval_formula, $matches);
+            $interval_value = (int) $matches[1];
+            $interval_unit = $matches[2];
+
+            $new_scheduled_at = \Carbon\Carbon::parse($this->meetingMinuteDate);
+
+            switch ($interval_unit) {
+                case 'd':
+                    $new_scheduled_at->addDays($interval_value);
+                    break;
+                case 'm':
+                    $new_scheduled_at->addMonths($interval_value);
+                    break;
+                case 'y':
+                    $new_scheduled_at->addYears($interval_value);
+                    break;
+            }
+            $new_scheduled_at = $new_scheduled_at->format('Y-m-d');
+        }
+        else {
+            $new_scheduled_at = \Carbon\Carbon::parse($this->meetingMinuteDate)->format('Y-m-d');
+        }    
     
         $meetingStatusId = MeetingStatus::where('description','Active')->first();
-        Meeting::where('id', $this->meetingId)->update(['meeting_status_id' => $meetingStatusId->id]); 
+        Meeting::where('id', $this->meetingId)->update([
+            'meeting_status_id' => $meetingStatusId->id,
+            'scheduled_at' => $new_scheduled_at,
+        ]);
 
         $Data['date'] = $this->meetingMinuteDate;
         $Data['meeting_id'] = $this->meetingId;
@@ -623,6 +654,9 @@ class MeetingMinuteDetail extends Component
             if ($this->meetingMinute) {
                 $this->meetingMinute->update($Data);
                 session()->flash('success', 'Meeting minute updated successfully.');
+
+
+
             } else {
                 session()->flash('error', 'Meeting minute not found.');
             }

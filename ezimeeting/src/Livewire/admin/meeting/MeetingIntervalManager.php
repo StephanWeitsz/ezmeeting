@@ -11,6 +11,7 @@ class MeetingIntervalManager extends Component
     public $description;
     public $text;
     public $order = 1;
+    public $formula;
     public $is_active = true;
     public $intervalId;
     public $intervals;
@@ -30,6 +31,7 @@ class MeetingIntervalManager extends Component
             'description' => 'required|string|unique:meeting_intervals,description',
             'text' => 'nullable|string',
             'order' => 'required|integer',
+            'formula' => 'nullable|string',
             'is_active' => 'boolean',
         ]);
 
@@ -37,6 +39,7 @@ class MeetingIntervalManager extends Component
             'description' => $this->description,
             'text' => $this->text,
             'order' => $this->order,
+            'formula' => $this->formula,
             'is_active' => $this->is_active,
         ]);
 
@@ -53,6 +56,7 @@ class MeetingIntervalManager extends Component
         $this->description = $interval->description;
         $this->text = $interval->text;
         $this->order = $interval->order;
+        $this->formula = $interval->formula;
         $this->is_active = $interval->is_active;
     }
 
@@ -67,6 +71,7 @@ class MeetingIntervalManager extends Component
             ],
             'text' => 'nullable|string',
             'order' => 'required|integer',
+            'formula' => 'nullable|string',
             'is_active' => 'boolean',
         ]);
 
@@ -75,6 +80,7 @@ class MeetingIntervalManager extends Component
             'description' => $this->description,
             'text' => $this->text,
             'order' => $this->order,
+            'formula' => $this->formula,
             'is_active' => $this->is_active,
         ]);
 
@@ -100,6 +106,7 @@ class MeetingIntervalManager extends Component
         $this->description = '';
         $this->text = '';
         $this->order = 1;
+        $this->formula = '';
         $this->is_active = true;
     }
 

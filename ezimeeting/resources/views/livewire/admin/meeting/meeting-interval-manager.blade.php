@@ -29,6 +29,12 @@
                     @error('order') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
+                <div class="mb-4 w-1/5">
+                    <label class="block text-gray-600">Date Formula</label>
+                    <input type="number" wire:model="formula" class="w-full p-2 border rounded focus:ring focus:ring-blue-300">
+                    @error('formula') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </div>
+
                 <div class="flex items-center space-x-2">
                     <input type="checkbox" wire:model="is_active" id="is_active" class="w-5 h-5">
                     <label for="is_active" class="text-gray-600">Active</label>
